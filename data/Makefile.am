@@ -13,7 +13,7 @@ autostart_DATA = com.endlessm.GoogleChromeInitialSetup.desktop
 com.endlessm.GoogleChromeInitialSetup.desktop: com.endlessm.GoogleChromeInitialSetup.desktop.in Makefile
 	$(AM_V_GEN) sed -e "s|\@pkglibexecdir\@|$(pkglibexecdir)|" $<> $@
 
-gsettings_SCHEMAS = com.endlessm.GoogleChromeInitialSetup.gschema.xml
+gsettings_SCHEMAS = com.endlessm.GoogleChromeHelper.gschema.xml
 
 @GSETTINGS_RULES@
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-    <schema path="/com/endlessm/GoogleChromeInitialSetup/" id="com.endlessm.GoogleChromeInitialSetup">
-        <key type="b" name="enabled">
+    <schema path="/com/endlessm/GoogleChromeHelper/" id="com.endlessm.GoogleChromeHelper">
+        <key type="b" name="enable-initial-setup">
             <default>false</default>
             <summary>Install Google Chrome on start up</summary>
             <description>When enabled, Google Chrome is automatically installed after logging in for the first time</description>
