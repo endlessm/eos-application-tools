@@ -47,7 +47,7 @@ def exit_with_error(*args):
 
 class GoogleChromeInstaller:
 
-    GSETTINGS_SCHEMA = "com.endlessm.GoogleChromeInitialSetup"
+    GSETTINGS_SCHEMA = "com.endlessm.GoogleChromeHelper"
 
     FLATPAK_CHROME_APP_ID = "com.google.Chrome"
     FLATPAK_REMOTE_EOS_APPS = 'eos-apps'
@@ -80,7 +80,7 @@ class GoogleChromeInstaller:
             return False
 
         schema = Gio.Settings(self.GSETTINGS_SCHEMA)
-        return schema.get_boolean("enabled")
+        return schema.get_boolean("enable-initial-setup")
 
     def _check_chrome_flatpak_launcher(self):
         try:
@@ -174,7 +174,7 @@ class GoogleChromeInstaller:
             return False
 
         schema = Gio.Settings(self.GSETTINGS_SCHEMA)
-        schema.set_boolean("enabled", False)
+        schema.set_boolean("enable-initial-setup", False)
 
     def _post_install_chrome(self):
         self._set_as_default_browser()
