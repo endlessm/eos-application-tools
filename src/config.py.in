@@ -23,6 +23,7 @@
 
 PKG_DATADIR = "@datadir@/@appinstallhelper@"
 
+POSTINSTALL_FILE = PKG_DATADIR + '/postinstall/{app_id}.postinstall'
 CONFIG_FILE = '@sysconfdir@/@appinstallhelper@/{app_id}.autoinstall.conf'
 STAMP_FILE_INITIAL_SETUP_DONE = '@localstatedir@/lib/@appinstallhelper@/{app_id}/initial-setup-done'
 

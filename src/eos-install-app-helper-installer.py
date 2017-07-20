@@ -160,6 +160,16 @@ class InstallAppHelperInstaller:
 
         loop.run()
 
+    def _run_postinstall(self, app_id, app_name):
+        postinstall_executable = config.POSTINSTALL_FILE.format(app_id=app_id)
+        if not os.path.exists(postinstall_executable):
+            logging.info("No post-installation script for {}".format(app_name))
+            return False
+
+        logging.info("Running post-installation script for {}".format(app_name))
+        subprocess.check_call([postinstall_executable])
+        return True
+
     def _touch_done_file(self, app_id):
         # The system-wide stamp file touched by this helper makes sure that
         # the automatic installation won't ever be performed for other users.

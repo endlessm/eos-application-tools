@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+
+import subprocess
+import sys
+
+
+def set_as_default_browser():
+    mimetypes = ['text/html',
+                 'x-scheme-handler/http',
+                 'x-scheme-handler/https',
+                 'x-scheme-handler/about']
+    for mimetype in mimetypes:
+        try:
+            subprocess.check_call('xdg-mime default google-chrome.desktop {}'.format(mimetype),
+                                  shell=True)
+        except subprocess.CalledProcessError as e:
+            exit_with_error("Couldn't start xdg-mime: {}".format(str(e)))
+    try:
+        subprocess.check_call('xdg-settings set default-web-browser google-chrome.desktop',
+                              shell=True)
+    except subprocess.CalledProcessError as e:
+        sys.stderr.write("Couldn't start xdg-settings: {}\n".format(str(e)))
+        sys.exit(1)
+
+if __name__ == "__main__":
+    set_as_default_browser()
+    sys.exit(0)
+
