@@ -187,24 +187,25 @@ class InstallAppHelperInstaller:
 
         logging.info("{} successfully installed".format(app_name))
 
+        self._run_postinstall(app_id, app_name)
         self._touch_done_file(app_id)
 
         logging.info("Post-installation configuration done")
 
 
-    def _get_unique_id(self, app_id, remote):
+    def _get_unique_id(self, app_id, remote_name):
         app_app_center_id = app_id
 
         default_branch = None
         try:
-            remote = self._installation.get_remote_by_name(remote)
+            remote = self._installation.get_remote_by_name(remote_name)
         except GLib.Error as e:
             logging.warning("Could not find flatpak remote {}: {}".format(remote, str(e)))
 
         # Get the default branch now to construct the full unique ID GNOME Software expects.
         default_branch = remote.get_default_branch()
         if default_branch:
-            app_app_center_id = 'system/flatpak/{}/desktop/{}.desktop/{}'.format(remote,
+            app_app_center_id = 'system/flatpak/{}/desktop/{}.desktop/{}'.format(remote_name,
                                                                                  app_id,
                                                                                  default_branch)
         return app_app_center_id
