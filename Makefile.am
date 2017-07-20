@@ -1,3 +1,3 @@
-SUBDIRS = install-app-helper data
+SUBDIRS = src data
 
 -include $(top_srcdir)/git.mk
