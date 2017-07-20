@@ -1,10 +1,12 @@
 icon64dir = $(datadir)/icons/hicolor/64x64/apps
 icon64_DATA = \
-	com.google.Chrome/eos-google-chrome.png
+	com.google.Chrome/eos-google-chrome.png \
+	org.videolan.VLC/eos-vlc.png
 
 desktopdir= $(datadir)/applications
 desktop_DATA = \
 	com.google.Chrome/google-chrome.desktop \
+	org.videolan.VLC/eos-vlc.desktop \
 	$(NULL)
 
 autostartdir = $(sysconfdir)/xdg/autostart
@@ -18,7 +20,8 @@ config_DATA = \
 
 appdatadir = $(datadir)/appdata
 appdata_DATA = \
-	com.google.Chrome/eos-google-chrome-helper.appdata.xml
+	com.google.Chrome/eos-google-chrome-helper.appdata.xml \
+	org.videolan.VLC/eos-vlc-helper.appdata.xml
 
 postinstalldir = $(datadir)/$(INSTALL_APP_HELPER_NAME)/postinstall
 postinstall_DATA = \
