@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Google Chrome Initial Setup
-Exec=@datadir@/@appinstallhelper@/eos-install-app-helper-installer.py --initial-setup --app-id com.google.Chrome --app-name "Google Chrome" --remote eos-apps --required-archs x86_64
+Exec=@datadir@/@appinstallhelper@/eos-install-app-helper-installer.py --initial-setup --app-id com.google.Chrome --app-name "Google Chrome" --remote eos-apps --old-desktop-file-name google-chrome.desktop --new-desktop-file-name  com.google.Chrome.desktop --required-archs x86_64
 Type=Application
 NoDisplay=true
 X-GNOME-Autostart-enabled=true
