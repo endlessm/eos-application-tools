@@ -218,7 +218,7 @@ class InstallAppHelperInstaller:
         # that GNOME Software expects, right from here, based on the remote's metadata.
         unique_id = self._get_unique_id(app_id, remote)
 
-        logging.info("Opening App Center...")
+        logging.info("Opening App Center for {}...".format(unique_id))
         if self._initial_setup:
             app_center_argv = ['gnome-software', '--install', unique_id, '--interaction', 'none']
         else:
