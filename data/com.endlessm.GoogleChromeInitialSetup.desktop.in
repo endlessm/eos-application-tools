@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=@app_name@ Initial Setup
-Exec=@datadir@/@chromehelpername@/eos-app-install-helper-installer.py --initial-setup
-Type=Application
-NoDisplay=true
-X-GNOME-Autostart-enabled=true
-AutostartCondition=unless-exists @localstatedir@/lib/@chromehelpername@/initial-setup-done

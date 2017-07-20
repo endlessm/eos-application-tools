@@ -16,6 +16,7 @@ AC_CONFIG_FILES([
 Makefile
 data/Makefile
 src/Makefile
+apps/Makefile
 ])
 AC_OUTPUT
 
