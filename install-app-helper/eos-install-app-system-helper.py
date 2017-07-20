@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 #
-# eos-google-chrome-system-helper: system helper to touch / reset the stamp file
+# eos-install-app-system-helper: system helper to touch / reset the stamp file
 #
 # Copyright (C) 2017 Endless Mobile, Inc.
 # Authors:
 #  Mario Sanchez Prada <mario@endlessm.com>
+#  Sam Spilsbury <sam@endlessm.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -65,18 +66,19 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     logging.root.addHandler(journal.JournalHandler())
 
-    parser = argparse.ArgumentParser(description="Marks Google Chrome installation as installed, system-wide")
+    parser = argparse.ArgumentParser(description="Marks application installation as installed, system-wide")
 
     parser.add_argument('--debug', help="Show extra messages", action='store_true')
     parser.add_argument('--reset', help="Remove stamp file", action='store_true')
+    parser.add_argument('--app-id', help="Application ID to stamp", type=str, required=True)
 
     parsed_args = parser.parse_args()
     if parsed_args.debug:
         logging.root.setLevel(logging.DEBUG)
 
     if parsed_args.reset:
-        remove_stamp_file(config.STAMP_FILE_INITIAL_SETUP_DONE)
+        remove_stamp_file(config.STAMP_FILE_INITIAL_SETUP_DONE.format(app_id=parsed_args.app_id))
     else:
-        create_stamp_file(config.STAMP_FILE_INITIAL_SETUP_DONE)
+        create_stamp_file(config.STAMP_FILE_INITIAL_SETUP_DONE.format(app_id=parsed_args.app_id))
 
     sys.exit(0)

@@ -10,16 +10,15 @@ AM_SILENT_RULES([yes])
 PKG_CHECK_MODULES([glib], [glib-2.0])
 GLIB_GSETTINGS
 
-AC_SUBST(CHROME_HELPER_NAME, "eos-google-chrome-helper")
+AC_SUBST(INSTALL_APP_HELPER_NAME, "eos-install-app-helper")
 
 AC_CONFIG_FILES([
 Makefile
 data/Makefile
-chrome-helper/Makefile
-src/Makefile
+install-app-helper/Makefile
 ])
 AC_OUTPUT
 
 echo "
-    eos-browser-tools $VERSION
+    eos-install-app-helper $VERSION
 "

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 #
-# eos-google-chrome-installer: helper script to install Google Chrome
+# eos-install-app-helper: helper script to install an App
 #
 # Copyright (C) 2016, 2017 Endless Mobile, Inc.
 # Authors:
@@ -21,13 +21,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-PKG_DATADIR = "@datadir@/@chromehelpername@"
+PKG_DATADIR = "@datadir@/@appinstallhelper@"
 
-FLATPAK_CHROME_APP_ID = 'com.google.Chrome'
-FLATPAK_REMOTE_EOS_APPS = 'eos-apps'
+CONFIG_FILE = '@sysconfdir@/@appinstallhelper@/{app_id}.autoinstall.conf'
+STAMP_FILE_INITIAL_SETUP_DONE = '@localstatedir@/lib/@appinstallhelper@/{app_id}/initial-setup-done'
 
-CONFIG_FILE = '@sysconfdir@/@chromehelpername@/eos-google-chrome-helper.conf'
-STAMP_FILE_INITIAL_SETUP_DONE = '@localstatedir@/lib/@chromehelpername@/initial-setup-done'
-
-LEGACY_GSETTINGS_SCHEMA = 'com.endlessm.GoogleChromeInitialSetup'
-LEGACY_USER_CONFIG_STAMP_FILE = '~/.config/google-chrome-initial-setup-done'

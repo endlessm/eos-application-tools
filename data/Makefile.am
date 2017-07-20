@@ -14,15 +14,15 @@ autostartdir = $(sysconfdir)/xdg/autostart
 autostart_in_files = com.endlessm.GoogleChromeInitialSetup.desktop.in
 autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
 
-configdir = $(sysconfdir)/$(CHROME_HELPER_NAME)
+configdir = $(sysconfdir)/$(INSTALL_APP_HELPER_NAME)
 config_DATA = eos-google-chrome-helper.conf
 
 polkit_policydir = $(datadir)/polkit-1/actions
-polkit_policy_in_files = com.endlessm.GoogleChromeHelper.system-helper.policy.in
+polkit_policy_in_files = com.endlessm.AppInstallHelper.system-helper.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 do_edit = sed \
-	-e "s|\@chromehelpername\@|$(CHROME_HELPER_NAME)|" \
+	-e "s|\@appinstallhelper\@|$(INSTALL_APP_HELPER_NAME)|" \
 	-e "s|\@datadir\@|$(datadir)|" \
 	-e "s|\@localstatedir\@|$(localstatedir)|"
 

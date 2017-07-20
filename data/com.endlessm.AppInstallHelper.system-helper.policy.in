@@ -7,14 +7,14 @@
   <vendor>Endless</vendor>
   <vendor_url>https://endlessm.com/</vendor_url>
 
-  <action id="com.endlessm.GoogleChromeHelper.system-helper">
-    <description>Marks an automatic Chrome installation as successful</description>
-    <message>Completing automatic installation of Google Chrome</message>
+  <action id="com.endlessm.AppInstallHelper.system-helper">
+    <description>Marks an automatic app installation as successful</description>
+    <message>Completing automatic installation of an app</message>
     <defaults>
       <allow_any>yes</allow_any>
       <allow_active>yes</allow_active>
       <allow_inactive>no</allow_inactive>
     </defaults>
-    <annotate key="org.freedesktop.policykit.exec.path">@datadir@/@chromehelpername@/eos-google-chrome-system-helper.py</annotate>
+    <annotate key="org.freedesktop.policykit.exec.path">@datadir@/@appinstallhelper@/eos-install-app-system-helper.py</annotate>
   </action>
 </policyconfig>

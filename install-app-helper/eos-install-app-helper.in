@@ -1,0 +1,3 @@
+#!/bin/sh
+prefix=@prefix@
+exec @datadir@/@appinstallhelper@/eos-install-app-helper.py "$@"

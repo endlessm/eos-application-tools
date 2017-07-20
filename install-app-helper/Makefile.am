@@ -1,6 +1,6 @@
 bin_SCRIPTS = eos-install-app-helper
 
-apphelperdir = $(datadir)/$(INSTALL_APP_HELPER_NAME)
+apphelperdir = $(datadir)/$(APP_HELPER_NAME)
 
 dist_apphelper_SCRIPTS = \
 	eos-install-app-helper.py \
@@ -13,7 +13,7 @@ apphelper_DATA = \
         $(NULL)
 
 do_edit = sed \
-	-e "s|\@appinstallhelper\@|$(INSTALL_APP_HELPER_NAME)|" \
+	-e "s|\@appinstallhelper\@|$(APP_HELPER_NAME)|" \
 	-e "s|\@datadir\@|$(datadir)|" \
 	-e "s|\@localstatedir\@|$(localstatedir)|" \
 	-e "s|\@sysconfdir\@|$(sysconfdir)|"
@@ -33,4 +33,3 @@ CLEANFILES = \
         config.py \
         eos-install-app-helper \
         $(NULL)
-
