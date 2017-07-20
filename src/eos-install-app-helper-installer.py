@@ -49,7 +49,6 @@ class InstallAppHelperInstaller:
                  remote,
                  app_name,
                  old_desktop_file_name,
-                 new_desktop_file_name,
                  initial_setup):
         self._initial_setup = initial_setup
 
@@ -80,8 +79,7 @@ class InstallAppHelperInstaller:
         self._run_app_center_for_app(app_id,
                                      remote,
                                      app_name,
-                                     old_desktop_file_name,
-                                     new_desktop_file_name)
+                                     old_desktop_file_name)
 
     def _initial_setup_already_done(self, app_id):
         if os.path.exists(config.STAMP_FILE_INITIAL_SETUP_DONE.format(app_id=app_id)):
@@ -180,7 +178,7 @@ class InstallAppHelperInstaller:
         subprocess.check_call([postinstall_executable])
         return True
 
-    def _switch_icons(self, old_desktop_file_name, new_desktop_file_name):
+    def _remove_old_icon(self, old_desktop_file_name):
         bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
         proxy = Gio.DBusProxy.new_sync(bus,
                                        Gio.DBusProxyFlags.NONE,
@@ -191,9 +189,6 @@ class InstallAppHelperInstaller:
                                        None)
         proxy.call_sync('RemoveApplication',
                         GLib.Variant('(s)', (old_desktop_file_name, )),
-                        Gio.DBusCallFlags.NO_AUTO_START, 500, None)
-        proxy.call_sync('AddApplication',
-                        GLib.Variant('(s)', (new_desktop_file_name, )),
                         Gio.DBusCallFlags.NO_AUTO_START, 500, None)
 
 
@@ -234,8 +229,7 @@ class InstallAppHelperInstaller:
                                 app_id,
                                 remote,
                                 app_name,
-                                old_desktop_file_name,
-                                new_desktop_file_name):
+                                old_desktop_file_name):
         # FIXME: Ideally, we should be able to pass 'com.google.{}' to GNOME Software
         # and it would do the right thing by opening the page for the app's branch matching
         # the default branch for the apps' source remote. Unfortunately, this is not the case
@@ -262,7 +256,7 @@ class InstallAppHelperInstaller:
         logging.info("{} successfully installed".format(app_name))
 
         # Swap out .desktop files
-        self._switch_icons(old_desktop_file_name, new_desktop_file_name)
+        self._remove_old_icon(old_desktop_file_name)
 
         # There's a post-install procedure for automatic installations.
         if self._initial_setup:
@@ -281,7 +275,6 @@ def main():
     parser.add_argument('--app-id', dest='app_id', help='Flatpak App ID', type=str, required=True)
     parser.add_argument('--remote', dest='remote', help='Flatpak Remote', type=str, required=True)
     parser.add_argument('--old-desktop-file-name', dest='old_desktop_file_name', help='File name for .desktop file to remove', type=str, required=True)
-    parser.add_argument('--new-desktop-file-name', dest='new_desktop_file_name', help='File name for .desktop file to add', type=str, required=True)
     parser.add_argument('--required-archs', dest='required_archs', default=[], nargs='*', type=str)
 
     parsed_args = parser.parse_args()
@@ -296,7 +289,6 @@ def main():
                               parsed_args.remote,
                               parsed_args.app_name,
                               parsed_args.old_desktop_file_name,
-                              parsed_args.new_desktop_file_name,
                               parsed_args.initial_setup)
     sys.exit(0)
 

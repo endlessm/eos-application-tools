@@ -46,7 +46,6 @@ class InstallAppHelperLauncher:
                  remote,
                  app_name,
                  old_desktop_file_name,
-                 new_desktop_file_name,
                  params):
         self._params = params
         try:
@@ -54,9 +53,9 @@ class InstallAppHelperLauncher:
         except GLib.Error as e:
             exit_with_error("Could not find current system installation: {}".format(repr(e)))
 
-        self._start(app_name, app_id, remote, old_desktop_file_name, new_desktop_file_name)
+        self._start(app_name, app_id, remote, old_desktop_file_name)
 
-    def _start(self, app_name, app_id, remote, old_desktop_file_name, new_desktop_file_name):
+    def _start(self, app_name, app_id, remote, old_desktop_file_name):
         launcher = self._get_app_flatpak_launcher(app_id, app_name)
         if launcher:
             logging.info("Flatpak launcher for {} found. Launching...".format(app_name))
@@ -66,8 +65,7 @@ class InstallAppHelperLauncher:
             self._install_app_id(app_id,
                                  remote,
                                  app_name,
-                                 old_desktop_file_name,
-                                 new_desktop_file_name)
+                                 old_desktop_file_name)
 
     def _run_app(self, launcher, app_name, params):
             try:
@@ -83,15 +81,13 @@ class InstallAppHelperLauncher:
                         app_id,
                         remote,
                         app_name,
-                        old_desktop_file_name,
-                        new_desktop_file_name):
+                        old_desktop_file_name):
         try:
             subprocess.Popen([os.path.join(config.PKG_DATADIR, 'eos-install-app-helper-installer.py'),
                               '--app-id', app_id,
                               '--remote', remote,
                               '--app-name', app_name,
-                              '--old-desktop-file-name', old_desktop_file_name,
-                              '--new-desktop-file-name', new_desktop_file_name])
+                              '--old-desktop-file-name', old_desktop_file_name])
         except OSError as e:
             exit_with_error("Could not launch {}: {}".format(app_name, repr(e)))
 
@@ -126,7 +122,6 @@ if __name__ == '__main__':
     parser.add_argument('--app-id', dest='app_id', help='Flatpak App ID', type=str, required=True)
     parser.add_argument('--remote', dest='remote', help='Flatpak Remote', type=str, required=True)
     parser.add_argument('--old-desktop-file-name', dest='old_desktop_file_name', help='File name for .desktop file to remove', type=str, required=True)
-    parser.add_argument('--new-desktop-file-name', dest='new_desktop_file_name', help='File name for .desktop file to add', type=str, required=True)
     parser.add_argument('--required-archs', dest='required_archs', default=[], nargs='*', type=str)
 
     parsed_args, otherargs = parser.parse_known_args()
@@ -143,6 +138,5 @@ if __name__ == '__main__':
                              parsed_args.remote,
                              parsed_args.app_name,
                              parsed_args.old_desktop_file_name,
-                             parsed_args.new_desktop_file_name,
                              otherargs)
     sys.exit(0)
