@@ -24,7 +24,7 @@ appdatadir = $(datadir)/appdata
 appdata_DATA = \
 	com.google.Chrome/eos-google-chrome-helper.appdata.xml \
 	com.spotify.Client/eos-spotify.appdata.xml \
-	org.videolan.VLC/eos-vlc-helper.appdata.xml
+	org.videolan.VLC/eos-vlc.appdata.xml
 
 postinstalldir = $(datadir)/$(INSTALL_APP_HELPER_NAME)/postinstall
 postinstall_DATA = \
