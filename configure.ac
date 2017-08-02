@@ -1,5 +1,5 @@
 AC_PREREQ([2.63])
-AC_INIT([eos-browser-tools], [1.0.1], [mario@endlessm.com])
+AC_INIT([eos-application-tools], [1.0.2], [mario@endlessm.com])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([config.h])
 
@@ -21,5 +21,5 @@ apps/Makefile
 AC_OUTPUT
 
 echo "
-    eos-install-app-helper $VERSION
+    eos-application-tools $VERSION
 "
