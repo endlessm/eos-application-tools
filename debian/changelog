@@ -1,3 +1,10 @@
+eos-application-tools (1.0.2) eos; urgency=medium
+
+  * Renamed to eos-application-tools, because the package has been made more
+    generic.
+
+ -- Cosimo Cecchi <cosimo@endlessm.com>  Wed, 02 Aug 2017 16:07:31 +0100
+
 eos-browser-tools (1.0.1) eos; urgency=medium
 
   * Renamed to eos-browser-tools, so that we can ship browser related
