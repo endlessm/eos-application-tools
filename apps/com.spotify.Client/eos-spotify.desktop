@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Spotify Client
+Comment=Listen to music using Spotify
+Exec=/usr/bin/eos-install-app-helper --app-id com.spotify.Client --remote eos-apps --old-desktop-file-name eos-spotify.desktop --required-archs x86_64 %U
+Terminal=false
+Icon=eos-spotify
+Type=Application

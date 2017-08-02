@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 #
-# eos-google-chrome-installer: helper script to install Google Chrome
+# eos-install-app-helper-installer: helper script to install an App
 #
 # Copyright (C) 2016, 2017 Endless Mobile, Inc.
 # Authors:
 #  Michal Rostecki <michal@kinvolk.io>
 #  Mario Sanchez Prada <mario@endlessm.com>
+#  Sam Spilsbury <sam@endlessm.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,17 +43,21 @@ def exit_with_error(*args):
     sys.exit(1)
 
 
-class GoogleChromeInstaller:
-    def __init__(self, initial_setup):
+class InstallAppHelperInstaller:
+    def __init__(self,
+                 app_id,
+                 remote,
+                 old_desktop_file_name,
+                 initial_setup):
         self._initial_setup = initial_setup
 
         if self._initial_setup:
-            if not self._automatic_install_enabled():
-                logging.info("Google Chrome installation is disabled")
+            if not self._automatic_install_enabled(config.CONFIG_FILE.format(app_id=app_id)):
+                logging.info("{} installation is disabled".format(app_id))
                 sys.exit(0)
 
-            if self._initial_setup_already_done():
-                logging.info("Google Chrome automatic installation already done")
+            if self._initial_setup_already_done(app_id):
+                logging.info("{} automatic installation already done".format(app_id))
                 sys.exit(0)
 
         try:
@@ -60,47 +65,42 @@ class GoogleChromeInstaller:
         except GLib.Error as e:
             exit_with_error("Couldn't not find current system installation: %r", e)
 
-        if self._check_chrome_flatpak_launcher():
-            logging.info("Google Chrome is already installed")
+        if self._check_app_flatpak_launcher(app_id):
+            logging.info("{app_id} is already installed".format(app_id))
             self._touch_done_file()
             return
 
-        logging.info("Could not find flatpak launcher for Chrome.")
+        logging.info("Could not find flatpak launcher for {}.".format(app_id))
 
         if self._initial_setup:
             self._wait_for_network_connectivity()
 
-        self._run_app_center_for_chrome()
+        self._run_app_center_for_app(app_id,
+                                     remote,
+                                     old_desktop_file_name)
 
-    def _initial_setup_already_done(self):
-        if os.path.exists(config.STAMP_FILE_INITIAL_SETUP_DONE):
-            return True
-
-        legacy_stamp_file = os.path.expanduser(config.LEGACY_USER_CONFIG_STAMP_FILE)
-        if os.path.exists(legacy_stamp_file):
-            # This is a legacy scenario, so we touch the system-wide file to
-            # make sure next time that's the only thing that gets checked.
-            self._touch_done_file()
+    def _initial_setup_already_done(self, app_id):
+        if os.path.exists(config.STAMP_FILE_INITIAL_SETUP_DONE.format(app_id=app_id)):
             return True
 
         return False
 
-    def _automatic_install_enabled(self):
-        if not os.path.exists(config.CONFIG_FILE):
+    def _automatic_install_enabled(self, config_file_path):
+        if not os.path.exists(config_file_path):
             logging.warning("Could not find configuration file at {}"
                             .format(config.CONFIG_FILE))
             return False
 
         is_enabled = False
-        with open(config.CONFIG_FILE, 'r') as config_file:
+        with open(config_file_path, 'r') as config_file:
             helper_config = configparser.ConfigParser(allow_no_value=True)
             try:
                 helper_config.read_file(config_file)
                 logging.info("Read contents from configuration file at {}\n"
-                             .format(config.CONFIG_FILE))
+                             .format(config_file_path))
             except configparser.ParsingError as e:
                 logging.error("Error parsing contents from configuration file at {}: {}"
-                             .format(config.CONFIG_FILE, str(e)))
+                             .format(config_file_path, str(e)))
                 return False
 
             try:
@@ -112,11 +112,11 @@ class GoogleChromeInstaller:
 
         return is_enabled
 
-    def _check_chrome_flatpak_launcher(self):
+    def _check_app_flatpak_launcher(self, app_id):
         try:
-            self._installation.get_current_installed_app(config.FLATPAK_CHROME_APP_ID, None)
+            self._installation.get_current_installed_app(app_id, None)
         except GLib.Error as e:
-            logging.info("Chrome application is not installed")
+            logging.info("{} application is not installed".format(app_id))
             return False
         return True
 
@@ -150,13 +150,13 @@ class GoogleChromeInstaller:
         monitor.connect('network-changed', _network_changed, loop)
         loop.run()
 
-    def _wait_for_installation(self):
+    def _wait_for_installation(self, app_id):
         def _installation_finished(monitor, file_, other_file, event_type):
             if event_type != Gio.FileMonitorEvent.CHANGES_DONE_HINT:
                 return
 
-            if self._check_chrome_flatpak_launcher():
-                logging.info("{} has been installed".format(config.FLATPAK_CHROME_APP_ID))
+            if self._check_app_flatpak_launcher(app_id):
+                logging.info("{} has been installed".format(app_id))
                 loop.quit()
 
         loop = GLib.MainLoop()
@@ -166,73 +166,75 @@ class GoogleChromeInstaller:
 
         loop.run()
 
-    def _set_as_default_browser(self):
-        mimetypes = ['text/html',
-                     'x-scheme-handler/http',
-                     'x-scheme-handler/https',
-                     'x-scheme-handler/about']
-        for mimetype in mimetypes:
-            try:
-                subprocess.check_call('xdg-mime default google-chrome.desktop {}'.format(mimetype),
-                                      shell=True)
-            except subprocess.CalledProcessError as e:
-                exit_with_error("Couldn't start xdg-mime: {}".format(str(e)))
-        try:
-            subprocess.check_call('xdg-settings set default-web-browser google-chrome.desktop',
-                                  shell=True)
-        except subprocess.CalledProcessError as e:
-            exit_with_error("Couldn't start xdg-settings: {}".format(str(e)))
+    def _run_postinstall(self, app_id):
+        postinstall_executable = config.POSTINSTALL_FILE.format(app_id=app_id)
+        if not os.path.exists(postinstall_executable):
+            logging.info("No post-installation script for {}".format(app_id))
+            return False
 
-    def _touch_done_file(self):
+        logging.info("Running post-installation script for {}".format(app_id))
+        subprocess.check_call([postinstall_executable])
+        return True
+
+    def _remove_old_icon(self, old_desktop_file_name):
+        bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
+        proxy = Gio.DBusProxy.new_sync(bus,
+                                       Gio.DBusProxyFlags.NONE,
+                                       None,
+                                       'org.gnome.Shell',
+                                       '/org/gnome/Shell',
+                                       'org.gnome.Shell.AppStore',
+                                       None)
+        proxy.call_sync('RemoveApplication',
+                        GLib.Variant('(s)', (old_desktop_file_name, )),
+                        Gio.DBusCallFlags.NO_AUTO_START, 500, None)
+
+
+    def _touch_done_file(self, app_id):
         # The system-wide stamp file touched by this helper makes sure that
         # the automatic installation won't ever be performed for other users.
-        system_helper_cmd = os.path.join(config.PKG_DATADIR, 'eos-google-chrome-system-helper.py')
+        system_helper_cmd = os.path.join(config.PKG_DATADIR, 'eos-install-app-system-helper.py')
         try:
-            subprocess.check_call('pkexec {}'.format(system_helper_cmd), shell=True)
+            subprocess.check_call('pkexec {} --app-id {}'.format(system_helper_cmd, app_id), shell=True)
         except subprocess.CalledProcessError as e:
             exit_with_error("Couldn't run {}: {}".format(system_helper_cmd, str(e)))
 
-    def _post_install_chrome(self):
-        self._wait_for_installation()
-
-        if not self._check_chrome_flatpak_launcher():
-            exit_with_error("Chrome isn't installed - something went wrong in GNOME Software")
-
-        logging.info("Chrome successfully installed")
-
-        self._set_as_default_browser()
-        self._touch_done_file()
+    def _post_install_app(self, app_id):
+        self._run_postinstall(app_id)
+        self._touch_done_file(app_id)
 
         logging.info("Post-installation configuration done")
 
 
-    def _get_unique_id(self):
-        chrome_app_center_id = config.FLATPAK_CHROME_APP_ID
+    def _get_unique_id(self, app_id, remote_name):
+        app_app_center_id = app_id
 
         default_branch = None
         try:
-            remote = self._installation.get_remote_by_name(config.FLATPAK_REMOTE_EOS_APPS)
+            remote = self._installation.get_remote_by_name(remote_name)
         except GLib.Error as e:
-            logging.warning("Could not find flatpak remote {}: {}"
-                            .format(config.FLATPAK_REMOTE_EOS_APPS, str(e)))
+            logging.warning("Could not find flatpak remote {}: {}".format(remote, str(e)))
 
         # Get the default branch now to construct the full unique ID GNOME Software expects.
         default_branch = remote.get_default_branch()
         if default_branch:
-            chrome_app_center_id = 'system/flatpak/{}/desktop/{}.desktop/{}'.format(config.FLATPAK_REMOTE_EOS_APPS,
-                                                                                    config.FLATPAK_CHROME_APP_ID,
-                                                                                    default_branch)
-        return chrome_app_center_id
+            app_app_center_id = 'system/flatpak/{}/desktop/{}.desktop/{}'.format(remote_name,
+                                                                                 app_id,
+                                                                                 default_branch)
+        return app_app_center_id
 
-    def _run_app_center_for_chrome(self):
-        # FIXME: Ideally, we should be able to pass 'com.google.Chrome' to GNOME Software
+    def _run_app_center_for_app(self,
+                                app_id,
+                                remote,
+                                old_desktop_file_name):
+        # FIXME: Ideally, we should be able to pass the app ID to GNOME Software
         # and it would do the right thing by opening the page for the app's branch matching
         # the default branch for the apps' source remote. Unfortunately, this is not the case
         # at the moment and fixing it is non-trivial, so we'll construct the full unique ID
         # that GNOME Software expects, right from here, based on the remote's metadata.
-        unique_id = self._get_unique_id()
+        unique_id = self._get_unique_id(app_id, remote)
 
-        logging.info("Opening App Center...")
+        logging.info("Opening App Center for {}...".format(unique_id))
         if self._initial_setup:
             app_center_argv = ['gnome-software', '--install', unique_id, '--interaction', 'none']
         else:
@@ -241,11 +243,21 @@ class GoogleChromeInstaller:
         try:
             subprocess.Popen(app_center_argv)
         except OSError as e:
-            exit_with_error("Could not launch Chrome: {}".format(repr(e)))
+            exit_with_error("Could not launch {}: {}".format(app_id, repr(e)))
+
+        self._wait_for_installation(app_id)
+
+        if not self._check_app_flatpak_launcher(app_id):
+            exit_with_error("{} isn't installed - something went wrong in GNOME Software".format(app_id))
+
+        logging.info("{} successfully installed".format(app_id))
+
+        # Swap out .desktop files
+        self._remove_old_icon(old_desktop_file_name)
 
         # There's a post-install procedure for automatic installations.
         if self._initial_setup:
-            self._post_install_chrome()
+            self._post_install_app(app_id)
 
 
 def main():
@@ -256,17 +268,23 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', dest='debug', action='store_true')
     parser.add_argument('--initial-setup', dest='initial_setup', action='store_true')
+    parser.add_argument('--app-id', dest='app_id', help='Flatpak App ID', type=str, required=True)
+    parser.add_argument('--remote', dest='remote', help='Flatpak Remote', type=str, required=True)
+    parser.add_argument('--old-desktop-file-name', dest='old_desktop_file_name', help='File name for .desktop file to remove', type=str, required=True)
+    parser.add_argument('--required-archs', dest='required_archs', default=[], nargs='*', type=str)
 
     parsed_args = parser.parse_args()
 
     if parsed_args.debug:
         logging.root.setLevel(logging.DEBUG)
 
-    app_arch = Flatpak.get_default_arch()
-    if app_arch != 'x86_64':
+    if parsed_args.required_archs and Flatpak.get_default_arch() not in parsed_args.required_archs:
         exit_with_error("Found installation of unsupported architecture: %s", app_arch)
 
-    GoogleChromeInstaller(parsed_args.initial_setup)
+    InstallAppHelperInstaller(parsed_args.app_id,
+                              parsed_args.remote,
+                              parsed_args.old_desktop_file_name,
+                              parsed_args.initial_setup)
     sys.exit(0)
 
 

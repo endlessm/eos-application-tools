@@ -1,3 +1,3 @@
-SUBDIRS = src chrome-helper data
+SUBDIRS = src data apps
 
 -include $(top_srcdir)/git.mk
