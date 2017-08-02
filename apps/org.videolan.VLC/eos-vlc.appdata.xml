@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
-  <id>vlc.desktop</id>
+  <id>eos-vlc.desktop</id>
   <categories>
     <category>Blacklisted</category>
   </categories>
