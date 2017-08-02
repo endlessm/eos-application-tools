@@ -1,6 +1,7 @@
 icon64dir = $(datadir)/icons/hicolor/64x64/apps
 icon64_DATA = \
 	com.google.Chrome/eos-google-chrome.png \
+	com.microsoft.Skype/eos-skype.png \
 	com.spotify.Client/eos-spotify.png \
 	org.videolan.VLC/eos-vlc.png \
 	$(NULL)
@@ -9,6 +10,7 @@ desktopdir= $(datadir)/applications
 desktop_DATA = \
 	com.google.Chrome/eos-browser-appmode.desktop \
 	com.google.Chrome/google-chrome.desktop \
+	com.microsoft.Skype/eos-skype.desktop \
 	com.spotify.Client/eos-spotify.desktop \
 	org.videolan.VLC/eos-vlc.desktop \
 	$(NULL)
