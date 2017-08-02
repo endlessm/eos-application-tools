@@ -31,6 +31,7 @@ import config
 import gi
 gi.require_version('Flatpak', '1.0')
 from gi.repository import Flatpak
+from gi.repository import Gio
 from gi.repository import GLib
 from systemd import journal
 
@@ -80,6 +81,18 @@ class InstallAppHelperLauncher:
 
             launcher_process.wait()
             logging.info("{} launcher stopped".format(app_id))
+        else:
+            logging.info("Launching {} flatpak app through desktop file".format(app_id))
+            desktop_id = app_id + '.desktop'
+            desktop_info = Gio.DesktopAppInfo.new(desktop_id)
+            if desktop_info:
+                try:
+                    desktop_info.launch()
+                except GLib.Error as e:
+                    exit_with_error("Could not launch {}: {}".format(app_id, repr(e)))
+
+            else:
+                exit_with_error("Could not find desktop file for {}".format(app_id))
 
     def _install_app_id(self,
                         app_id,
