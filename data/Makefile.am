@@ -15,4 +15,5 @@ EXTRA_DIST = \
 	$(NULL)
 
 CLEANFILES = \
+	$(polkit_policy_DATA) \
 	$(NULL)

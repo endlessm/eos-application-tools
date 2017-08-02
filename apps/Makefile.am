@@ -2,7 +2,8 @@ icon64dir = $(datadir)/icons/hicolor/64x64/apps
 icon64_DATA = \
 	com.google.Chrome/eos-google-chrome.png \
 	com.spotify.Client/eos-spotify.png \
-	org.videolan.VLC/eos-vlc.png
+	org.videolan.VLC/eos-vlc.png \
+	$(NULL)
 
 desktopdir= $(datadir)/applications
 desktop_DATA = \
@@ -13,22 +14,26 @@ desktop_DATA = \
 
 autostartdir = $(sysconfdir)/xdg/autostart
 autostart_in_files = \
-	com.google.Chrome/com.endlessm.GoogleChromeInitialSetup.desktop.in
+	com.google.Chrome/com.endlessm.GoogleChromeInitialSetup.desktop.in \
+	$(NULL)
 autostart_DATA = $(autostart_in_files:.desktop.in=.desktop)
 
 configdir = $(sysconfdir)/$(INSTALL_APP_HELPER_NAME)
 config_DATA = \
-	com.google.Chrome/com.google.Chrome.autoinstall.conf
+	com.google.Chrome/com.google.Chrome.autoinstall.conf \
+	$(NULL)
 
 appdatadir = $(datadir)/appdata
 appdata_DATA = \
 	com.google.Chrome/eos-google-chrome-helper.appdata.xml \
 	com.spotify.Client/eos-spotify.appdata.xml \
-	org.videolan.VLC/eos-vlc.appdata.xml
+	org.videolan.VLC/eos-vlc.appdata.xml \
+	$(NULL)
 
 postinstalldir = $(datadir)/$(INSTALL_APP_HELPER_NAME)/postinstall
 postinstall_DATA = \
-	com.google.Chrome/com.google.Chrome.postinstall
+	com.google.Chrome/com.google.Chrome.postinstall \
+	$(NULL)
 
 do_edit = sed \
 	-e "s|\@appinstallhelper\@|$(INSTALL_APP_HELPER_NAME)|" \
@@ -38,15 +43,13 @@ do_edit = sed \
 %.desktop: %.desktop.in Makefile
 	$(AM_V_GEN) $(do_edit) $<> $@
 
-showdata:
-	echo $(autostart_DATA)
-
 EXTRA_DIST = \
-	$(appdata_DATA) \
-	$(desktop_DATA) \
 	$(icon64_DATA) \
+	$(desktop_DATA) \
 	$(autostart_in_files) \
 	$(config_DATA) \
+	$(appdata_DATA) \
+	$(postinstall_DATA) \
 	$(NULL)
 
 CLEANFILES = \
@@ -55,4 +58,3 @@ CLEANFILES = \
 
 install-data-hook:
 	chmod +x $(DESTDIR)$(postinstalldir)/com.google.Chrome.postinstall
-
