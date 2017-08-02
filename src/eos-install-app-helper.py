@@ -31,6 +31,7 @@ import config
 import gi
 gi.require_version('Flatpak', '1.0')
 from gi.repository import Flatpak
+from gi.repository import Gio
 from gi.repository import GLib
 from systemd import journal
 
@@ -45,6 +46,7 @@ class InstallAppHelperLauncher:
                  app_id,
                  remote,
                  old_desktop_file_name,
+                 no_sandbox_launcher,
                  params):
         self._params = params
         try:
@@ -52,20 +54,25 @@ class InstallAppHelperLauncher:
         except GLib.Error as e:
             exit_with_error("Could not find current system installation: {}".format(repr(e)))
 
-        self._start(app_id, remote, old_desktop_file_name)
+        self._start(app_id, remote, old_desktop_file_name, no_sandbox_launcher)
 
-    def _start(self, app_id, remote, old_desktop_file_name):
-        launcher = self._get_app_flatpak_launcher(app_id)
-        if launcher:
-            logging.info("Flatpak launcher for {} found. Launching...".format(app_id))
-            self._run_app(launcher, app_id, self._params)
+    def _start(self, app_id, remote, old_desktop_file_name, no_sandbox_launcher):
+        is_installed = self._is_flatpak_installed(app_id)
+        if is_installed:
+            logging.info("Flatpak for {} found. Launching...".format(app_id))
+            self._run_app(app_id, no_sandbox_launcher, self._params)
         else:
-            logging.info("Could not find flatpak launcher for {}. Running installation script...".format(app_id))
+            logging.info("Could not find flatpak for {}. Running installation script...".format(app_id))
             self._install_app_id(app_id,
                                  remote,
                                  old_desktop_file_name)
 
-    def _run_app(self, launcher, app_id, params):
+    def _run_app(self, app_id, no_sandbox_launcher, params):
+        if no_sandbox_launcher:
+            launcher = self._get_app_flatpak_launcher(app_id, no_sandbox_launcher)
+            if not launcher:
+                return
+
             try:
                 launcher_process = subprocess.Popen([launcher] + params)
                 logging.info("Running {} launcher with PID {}".format(app_id, launcher_process.pid))
@@ -74,6 +81,18 @@ class InstallAppHelperLauncher:
 
             launcher_process.wait()
             logging.info("{} launcher stopped".format(app_id))
+        else:
+            logging.info("Launching {} flatpak app through desktop file".format(app_id))
+            desktop_id = app_id + '.desktop'
+            desktop_info = Gio.DesktopAppInfo.new(desktop_id)
+            if desktop_info:
+                try:
+                    desktop_info.launch()
+                except GLib.Error as e:
+                    exit_with_error("Could not launch {}: {}".format(app_id, repr(e)))
+
+            else:
+                exit_with_error("Could not find desktop file for {}".format(app_id))
 
     def _install_app_id(self,
                         app_id,
@@ -87,7 +106,15 @@ class InstallAppHelperLauncher:
         except OSError as e:
             exit_with_error("Could not launch {}: {}".format(app_id, repr(e)))
 
-    def _get_app_flatpak_launcher(self, app_id):
+    def _is_flatpak_installed(self, app_id):
+        try:
+            app = self._installation.get_current_installed_app(app_id, None)
+            return True
+        except GLib.Error:
+            logging.info("{} application is not installed".format(app_id))
+            return False
+
+    def _get_app_flatpak_launcher(self, app_id, launcher_name):
         app = None
         try:
             app = self._installation.get_current_installed_app(app_id, None)
@@ -99,7 +126,7 @@ class InstallAppHelperLauncher:
         if not app_path or not os.path.exists(app_path):
             exit_with_error("Could not find {}'s application directory".format(app_id))
 
-        app_launcher_path = os.path.join(app_path, 'files', 'bin', '')
+        app_launcher_path = os.path.join(app_path, 'files', 'bin', launcher_name)
         if not os.path.exists(app_launcher_path):
             exit_with_error("Could not find flatpak launcher for {}".format(app_id))
 
@@ -118,6 +145,7 @@ if __name__ == '__main__':
     parser.add_argument('--remote', dest='remote', help='Flatpak Remote', type=str, required=True)
     parser.add_argument('--old-desktop-file-name', dest='old_desktop_file_name', help='File name for .desktop file to remove', type=str, required=True)
     parser.add_argument('--required-archs', dest='required_archs', default=[], nargs='*', type=str)
+    parser.add_argument('--no-sandbox-launcher', help='Name of launcher to run outside of Flatpak sandbox', dest='no_sandbox_launcher', type=str)
 
     parsed_args, otherargs = parser.parse_known_args()
 
@@ -132,5 +160,6 @@ if __name__ == '__main__':
     InstallAppHelperLauncher(parsed_args.app_id,
                              parsed_args.remote,
                              parsed_args.old_desktop_file_name,
+                             parsed_args.no_sandbox_launcher,
                              otherargs)
     sys.exit(0)
