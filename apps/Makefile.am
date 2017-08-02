@@ -7,9 +7,14 @@ icon64_DATA = \
 
 desktopdir= $(datadir)/applications
 desktop_DATA = \
+	com.google.Chrome/eos-browser-appmode.desktop \
 	com.google.Chrome/google-chrome.desktop \
 	com.spotify.Client/eos-spotify.desktop \
 	org.videolan.VLC/eos-vlc.desktop \
+	$(NULL)
+
+dist_bin_SCRIPTS = \
+	com.google.Chrome/eos-browser-appmode \
 	$(NULL)
 
 autostartdir = $(sysconfdir)/xdg/autostart
