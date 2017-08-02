@@ -1,4 +1,4 @@
-Source: eos-browser-tools
+Source: eos-application-tools
 Section: admin
 Priority: standard
 Maintainer: Mario Sanchez Prada <mario@endlessm.com>
@@ -19,7 +19,7 @@ Depends: ${shlibs:Depends},
         gir1.2-glib-2.0,
         python3,
         python3-gi
-Suggests: eos-google-chrome-helper
+Suggests: eos-install-app-helper
 Provides: mime<x-scheme-handler/webapp>
 Description: Endless-specific and browser-related tools
  This currently provides a handler for webapp://<WM_CLASS>@<URI> URIs,
@@ -31,11 +31,18 @@ Description: Endless-specific and browser-related tools
  sandboxed flatpak applications, that rely on the Flatpak's OpenURI portal.
  .
  If Google Chrome has been installed via the App Center (which requires
- having the eos-google-chrome-helper package installed), this script will
+ having the eos-install-app-helper package installed), this script will
  consider using it instead of Chromium if it's set as the default browser,
  otherwise Chromium will be used.
 
 Package: eos-google-chrome-helper
+Architecture: all
+Depends: ${misc:Depends},
+         eos-install-app-helper
+Description: Transitional package
+ This is a transitional package. It can safely be removed.
+
+Package: eos-install-app-helper
 Architecture: amd64
 Depends: ${misc:Depends},
 	flatpak,
@@ -44,7 +51,9 @@ Depends: ${misc:Depends},
 	python3,
 	python3-gi,
 	python3-systemd
-Description: Google Chrome wrapper application
+Breaks: eos-google-chrome-helper (<< 1.0.2)
+Replaces: eos-google-chrome-helper (<< 1.0.2)
+Description: Wrapper application for desktop launchers
  Small package to contain the logic responsible of
- launching Google Chrome on Endless OS when installed,
- or redirecting the user to the App Center otherwise.
+ implementing desktop launchers for certain apps on Endless OS
+ when installed, or redirecting the user to the App Center otherwise.
