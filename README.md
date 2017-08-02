@@ -1,11 +1,12 @@
-# eos-browser-tools
+# eos-application-tools
 
 # Description
 
 This package currently contains two main components
 
   * eos-browser-tools: Endless-specific and browser-related tools
-  * eos-google-chrome-helper: Wrapper application to run Google Chrome
+  * eos-install-app-helper: Wrapper application to run apps that
+      we recommend but cannot distribute with Endless images
 
 ## eos-browser-tools
 
@@ -23,21 +24,23 @@ having the eos-google-chrome-helper package installed), this script
 will consider using it instead of Chromium if it's set as the default
 browser, otherwise Chromium will be used.
 
-## eos-google-chrome-helper
+## eos-install-app-helper
 
-This package provides a system level wrapper application to allow easily
-downloading, installing and running Google Chrome on Endless OS.
+This package provides system level wrapper applications to allow easily
+downloading, installing and running specific apps on Endless OS.
 
 This wrapper application does mainly two things when you click on the desktop icon:
 
-  * Integrates with the App Center (GNOME Software) so that it gets open on the page
-    for Google Chrome when you click on the desktop icon and hasn't been installed yet.
+  * If the app is not yet installed, the wrapper script opens the app's detail
+    page in the App Center (GNOME Software).
 
-  * If Google Chrome has been previously installed (using flatpak as a delivery mechanism),
-    the wrapper script launches chromium with its own sandbox (outside of flatpak), by
-    calling a launcher script that is shipped along with the "headless" flatpak app.
+  * If the app has already been installed (using flatpak as a delivery mechanism),
+    the wrapper script launches the app.
+    In the specific case of Google Chrome, the wrapper script launches Chrome
+    with its own sandbox (outside of flatpak), by calling a launcher script
+    that is shipped along with the "headless" flatpak app.
 
-This package provides the following elements:
+For the browser integration, this package provides the following elements:
   * `eos-google-chrome`: wrapper to either launch Chrome or the App Center.
   * `eos-google-chrome.png`: icon to integrate with the desktop.
   * `google-chrome.desktop`: application information according to the Desktop Entry
@@ -46,13 +49,13 @@ This package provides the following elements:
   able to recognize itself when running as the default browser, which would end up
   with Chromium asking to set itself as the default each time it was run.
 
-All this files will be installed, exceptionally, as part of the OSTree, so that the
+All these files will be installed, exceptionally, as part of the OSTree, so that the
 icon and the wrapper app are available on the desktop at any time, either to run
-the browser or to install it if not yet available.
+the app or to install it if not yet available.
 
 ## License
 
-eos-browser-tools is Copyright (C) 2016, 2017 Endless Mobile, Inc.
+eos-application-tools is Copyright (C) 2016, 2017 Endless Mobile, Inc.
 and is licensed under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2 of
 the License, or (at your option) any later version.
