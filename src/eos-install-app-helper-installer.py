@@ -47,18 +47,17 @@ class InstallAppHelperInstaller:
     def __init__(self,
                  app_id,
                  remote,
-                 app_name,
                  old_desktop_file_name,
                  initial_setup):
         self._initial_setup = initial_setup
 
         if self._initial_setup:
             if not self._automatic_install_enabled(config.CONFIG_FILE.format(app_id=app_id)):
-                logging.info("{} installation is disabled".format(app_name))
+                logging.info("{} installation is disabled".format(app_id))
                 sys.exit(0)
 
             if self._initial_setup_already_done(app_id):
-                logging.info("{} automatic installation already done".format(app_name))
+                logging.info("{} automatic installation already done".format(app_id))
                 sys.exit(0)
 
         try:
@@ -66,19 +65,18 @@ class InstallAppHelperInstaller:
         except GLib.Error as e:
             exit_with_error("Couldn't not find current system installation: %r", e)
 
-        if self._check_app_flatpak_launcher(app_id, app_name):
-            logging.info("{app_name} is already installed".format(app_name))
+        if self._check_app_flatpak_launcher(app_id):
+            logging.info("{app_id} is already installed".format(app_id))
             self._touch_done_file()
             return
 
-        logging.info("Could not find flatpak launcher for {}.".format(app_name))
+        logging.info("Could not find flatpak launcher for {}.".format(app_id))
 
         if self._initial_setup:
             self._wait_for_network_connectivity()
 
         self._run_app_center_for_app(app_id,
                                      remote,
-                                     app_name,
                                      old_desktop_file_name)
 
     def _initial_setup_already_done(self, app_id):
@@ -114,11 +112,11 @@ class InstallAppHelperInstaller:
 
         return is_enabled
 
-    def _check_app_flatpak_launcher(self, app_id, app_name):
+    def _check_app_flatpak_launcher(self, app_id):
         try:
             self._installation.get_current_installed_app(app_id, None)
         except GLib.Error as e:
-            logging.info("{} application is not installed".format(app_name))
+            logging.info("{} application is not installed".format(app_id))
             return False
         return True
 
@@ -152,13 +150,13 @@ class InstallAppHelperInstaller:
         monitor.connect('network-changed', _network_changed, loop)
         loop.run()
 
-    def _wait_for_installation(self, app_id, app_name):
+    def _wait_for_installation(self, app_id):
         def _installation_finished(monitor, file_, other_file, event_type):
             if event_type != Gio.FileMonitorEvent.CHANGES_DONE_HINT:
                 return
 
-            if self._check_app_flatpak_launcher(app_id, app_name):
-                logging.info("{} has been installed".format(app_name))
+            if self._check_app_flatpak_launcher(app_id):
+                logging.info("{} has been installed".format(app_id))
                 loop.quit()
 
         loop = GLib.MainLoop()
@@ -168,13 +166,13 @@ class InstallAppHelperInstaller:
 
         loop.run()
 
-    def _run_postinstall(self, app_id, app_name):
+    def _run_postinstall(self, app_id):
         postinstall_executable = config.POSTINSTALL_FILE.format(app_id=app_id)
         if not os.path.exists(postinstall_executable):
-            logging.info("No post-installation script for {}".format(app_name))
+            logging.info("No post-installation script for {}".format(app_id))
             return False
 
-        logging.info("Running post-installation script for {}".format(app_name))
+        logging.info("Running post-installation script for {}".format(app_id))
         subprocess.check_call([postinstall_executable])
         return True
 
@@ -201,8 +199,8 @@ class InstallAppHelperInstaller:
         except subprocess.CalledProcessError as e:
             exit_with_error("Couldn't run {}: {}".format(system_helper_cmd, str(e)))
 
-    def _post_install_app(self, app_id, app_name):
-        self._run_postinstall(app_id, app_name)
+    def _post_install_app(self, app_id):
+        self._run_postinstall(app_id)
         self._touch_done_file(app_id)
 
         logging.info("Post-installation configuration done")
@@ -228,7 +226,6 @@ class InstallAppHelperInstaller:
     def _run_app_center_for_app(self,
                                 app_id,
                                 remote,
-                                app_name,
                                 old_desktop_file_name):
         # FIXME: Ideally, we should be able to pass the app ID to GNOME Software
         # and it would do the right thing by opening the page for the app's branch matching
@@ -246,21 +243,21 @@ class InstallAppHelperInstaller:
         try:
             subprocess.Popen(app_center_argv)
         except OSError as e:
-            exit_with_error("Could not launch {}: {}".format(app_name, repr(e)))
+            exit_with_error("Could not launch {}: {}".format(app_id, repr(e)))
 
-        self._wait_for_installation(app_id, app_name)
+        self._wait_for_installation(app_id)
 
-        if not self._check_app_flatpak_launcher(app_id, app_name):
-            exit_with_error("{} isn't installed - something went wrong in GNOME Software".format(app_name))
+        if not self._check_app_flatpak_launcher(app_id):
+            exit_with_error("{} isn't installed - something went wrong in GNOME Software".format(app_id))
 
-        logging.info("{} successfully installed".format(app_name))
+        logging.info("{} successfully installed".format(app_id))
 
         # Swap out .desktop files
         self._remove_old_icon(old_desktop_file_name)
 
         # There's a post-install procedure for automatic installations.
         if self._initial_setup:
-            self._post_install_app(app_id, app_name)
+            self._post_install_app(app_id)
 
 
 def main():
@@ -271,7 +268,6 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', dest='debug', action='store_true')
     parser.add_argument('--initial-setup', dest='initial_setup', action='store_true')
-    parser.add_argument('--app-name', dest='app_name', help='Human readable app name', type=str, required=True)
     parser.add_argument('--app-id', dest='app_id', help='Flatpak App ID', type=str, required=True)
     parser.add_argument('--remote', dest='remote', help='Flatpak Remote', type=str, required=True)
     parser.add_argument('--old-desktop-file-name', dest='old_desktop_file_name', help='File name for .desktop file to remove', type=str, required=True)
@@ -287,7 +283,6 @@ def main():
 
     InstallAppHelperInstaller(parsed_args.app_id,
                               parsed_args.remote,
-                              parsed_args.app_name,
                               parsed_args.old_desktop_file_name,
                               parsed_args.initial_setup)
     sys.exit(0)

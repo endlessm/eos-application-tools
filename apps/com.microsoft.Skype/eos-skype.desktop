@@ -2,7 +2,7 @@
 Version=1.0
 Name=Skype
 Comment=Free internet calls with cheap rates to phones
-Exec=/usr/bin/eos-install-app-helper --app-id com.microsoft.Skype --remote eos-apps --app-name "Skype" --old-desktop-file-name eos-skype.desktop --required-archs x86_64 %U
+Exec=/usr/bin/eos-install-app-helper --app-id com.microsoft.Skype --remote eos-apps --old-desktop-file-name eos-skype.desktop --required-archs x86_64 %U
 Terminal=false
 Icon=eos-skype
 Type=Application
