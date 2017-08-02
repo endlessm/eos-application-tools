@@ -1,6 +1,18 @@
 [Desktop Entry]
 Version=1.0
 Name=Google Chrome
+Name[ar]=Google Chrome
+Name[bn]=গুগল ক্রোম
+Name[es]=Google Chrome
+Name[fr]=Google Chrome
+Name[hi]=Google Chrome
+Name[id]=Google Chrome
+Name[pt_BR]=Google Chorme
+Name[ro]=Google Chrome
+Name[th]=Google Chrome
+Name[vi]=Google Chrome
+Name[zh_CN]=Google Chrome
+Name[zh_TW]=Google Chrome
 # Only KDE 4 seems to use GenericName, so we reuse the KDE strings.
 # From Ubuntu's language-pack-kde-XX-base packages, version 9.04-20090413.
 GenericName=Web Browser
