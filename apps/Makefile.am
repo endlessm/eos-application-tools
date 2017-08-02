@@ -41,6 +41,7 @@ do_edit = sed \
 	-e "s|\@localstatedir\@|$(localstatedir)|"
 
 %.desktop: %.desktop.in Makefile
+	$(MKDIR_P) $(dir $@) && \
 	$(AM_V_GEN) $(do_edit) $<> $@
 
 EXTRA_DIST = \
