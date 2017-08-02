@@ -129,7 +129,7 @@ if __name__ == '__main__':
     if parsed_args.debug:
         logging.root.setLevel(logging.DEBUG)
 
-    # Google Chrome is only available for Intel 64-bit
+    # Some apps are only available for certain architectures
     if parsed_args.required_archs and Flatpak.get_default_arch() not in parsed_args.required_archs:
         exit_with_error("Found installation of unsupported architecture: {}".format(app_arch))
 

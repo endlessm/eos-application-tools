@@ -230,7 +230,7 @@ class InstallAppHelperInstaller:
                                 remote,
                                 app_name,
                                 old_desktop_file_name):
-        # FIXME: Ideally, we should be able to pass 'com.google.{}' to GNOME Software
+        # FIXME: Ideally, we should be able to pass the app ID to GNOME Software
         # and it would do the right thing by opening the page for the app's branch matching
         # the default branch for the apps' source remote. Unfortunately, this is not the case
         # at the moment and fixing it is non-trivial, so we'll construct the full unique ID
