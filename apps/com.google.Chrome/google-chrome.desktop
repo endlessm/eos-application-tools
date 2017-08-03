@@ -178,7 +178,7 @@ Name[uk]=Нове вікно
 Name[vi]=Cửa sổ Mới
 Name[zh_CN]=新建窗口
 Name[zh_TW]=開新視窗
-Exec=/usr/bin/eos-google-chrome
+Exec=/usr/bin/eos-install-app-helper --app-id com.google.Chrome --remote eos-apps --required-archs x86_64 --no-sandbox-launcher eos-google-chrome-app %U
 TargetEnvironment=Unity
 X-Endless-LaunchMaximized=true
 
@@ -232,6 +232,6 @@ Name[uk]=Нове вікно в режимі анонімного перегля
 Name[vi]=Cửa sổ ẩn danh mới
 Name[zh_CN]=新建隐身窗口
 Name[zh_TW]=新增無痕式視窗
-Exec=/usr/bin/eos-google-chrome --incognito
+Exec=/usr/bin/eos-install-app-helper --app-id com.google.Chrome --remote eos-apps --required-archs x86_64 --no-sandbox-launcher eos-google-chrome-app --incognito
 TargetEnvironment=Unity
 X-Endless-LaunchMaximized=true
