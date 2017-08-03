@@ -33,6 +33,7 @@ config_DATA = \
 appdatadir = $(datadir)/appdata
 appdata_DATA = \
 	com.google.Chrome/eos-google-chrome-helper.appdata.xml \
+	com.microsoft.Skype/eos-skype.appdata.xml \
 	com.spotify.Client/eos-spotify.appdata.xml \
 	org.videolan.VLC/eos-vlc.appdata.xml \
 	$(NULL)
