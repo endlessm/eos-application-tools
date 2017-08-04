@@ -5,7 +5,6 @@ apphelperdir = $(datadir)/$(INSTALL_APP_HELPER_NAME)
 dist_apphelper_SCRIPTS = \
 	eos-install-app-helper.py \
 	eos-install-app-helper-installer.py \
-	eos-install-app-system-helper.py \
 	$(NULL)
 
 apphelper_DATA = \
@@ -14,9 +13,7 @@ apphelper_DATA = \
 
 do_edit = sed \
 	-e "s|\@appinstallhelper\@|$(INSTALL_APP_HELPER_NAME)|" \
-	-e "s|\@datadir\@|$(datadir)|" \
-	-e "s|\@localstatedir\@|$(localstatedir)|" \
-	-e "s|\@sysconfdir\@|$(sysconfdir)|"
+	-e "s|\@datadir\@|$(datadir)|"
 
 eos-install-app-helper: eos-install-app-helper.in Makefile
 	$(AM_V_GEN) $(do_edit) $<> $@

@@ -1,10 +1,7 @@
-/etc
 /usr/bin/eos-install-app-helper
 /usr/share/appdata
-/usr/share/applications/google-chrome.desktop
 /usr/share/applications/eos-skype.desktop
 /usr/share/applications/eos-spotify.desktop
 /usr/share/applications/eos-vlc.desktop
 /usr/share/eos-install-app-helper
 /usr/share/icons
-/usr/share/polkit-1

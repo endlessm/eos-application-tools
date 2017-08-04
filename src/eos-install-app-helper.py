@@ -46,7 +46,6 @@ class InstallAppHelperLauncher:
                  app_id,
                  remote,
                  old_desktop_file_name,
-                 no_sandbox_launcher,
                  params):
         self._params = params
         try:
@@ -54,45 +53,30 @@ class InstallAppHelperLauncher:
         except GLib.Error as e:
             exit_with_error("Could not find current system installation: {}".format(repr(e)))
 
-        self._start(app_id, remote, old_desktop_file_name, no_sandbox_launcher)
+        self._start(app_id, remote, old_desktop_file_name)
 
-    def _start(self, app_id, remote, old_desktop_file_name, no_sandbox_launcher):
+    def _start(self, app_id, remote, old_desktop_file_name):
         is_installed = self._is_flatpak_installed(app_id)
         if is_installed:
             logging.info("Flatpak for {} found. Launching...".format(app_id))
-            self._run_app(app_id, no_sandbox_launcher, self._params)
+            self._run_app(app_id, self._params)
         else:
             logging.info("Could not find flatpak for {}. Running installation script...".format(app_id))
             self._install_app_id(app_id,
                                  remote,
                                  old_desktop_file_name)
 
-    def _run_app(self, app_id, no_sandbox_launcher, params):
-        if no_sandbox_launcher:
-            launcher = self._get_app_flatpak_launcher(app_id, no_sandbox_launcher)
-            if not launcher:
-                return
-
+    def _run_app(self, app_id, params):
+        logging.info("Launching {} flatpak app through desktop file".format(app_id))
+        desktop_id = app_id + '.desktop'
+        desktop_info = Gio.DesktopAppInfo.new(desktop_id)
+        if desktop_info:
             try:
-                launcher_process = subprocess.Popen([launcher] + params)
-                logging.info("Running {} launcher with PID {}".format(app_id, launcher_process.pid))
-            except OSError as e:
+                desktop_info.launch()
+            except GLib.Error as e:
                 exit_with_error("Could not launch {}: {}".format(app_id, repr(e)))
-
-            launcher_process.wait()
-            logging.info("{} launcher stopped".format(app_id))
         else:
-            logging.info("Launching {} flatpak app through desktop file".format(app_id))
-            desktop_id = app_id + '.desktop'
-            desktop_info = Gio.DesktopAppInfo.new(desktop_id)
-            if desktop_info:
-                try:
-                    desktop_info.launch()
-                except GLib.Error as e:
-                    exit_with_error("Could not launch {}: {}".format(app_id, repr(e)))
-
-            else:
-                exit_with_error("Could not find desktop file for {}".format(app_id))
+           exit_with_error("Could not find desktop file for {}".format(app_id))
 
     def _install_app_id(self,
                         app_id,
@@ -108,7 +92,7 @@ class InstallAppHelperLauncher:
 
     def _is_flatpak_installed(self, app_id):
         try:
-            app = self._installation.get_current_installed_app(app_id, None)
+            self._installation.get_current_installed_app(app_id, None)
             return True
         except GLib.Error:
             logging.info("{} application is not installed".format(app_id))
@@ -145,7 +129,6 @@ if __name__ == '__main__':
     parser.add_argument('--remote', dest='remote', help='Flatpak Remote', type=str, required=True)
     parser.add_argument('--old-desktop-file-name', dest='old_desktop_file_name', help='File name for .desktop file to remove', type=str, required=True)
     parser.add_argument('--required-archs', dest='required_archs', default=[], nargs='*', type=str)
-    parser.add_argument('--no-sandbox-launcher', help='Name of launcher to run outside of Flatpak sandbox', dest='no_sandbox_launcher', type=str)
 
     parsed_args, otherargs = parser.parse_known_args()
 
@@ -154,12 +137,10 @@ if __name__ == '__main__':
 
     # Some apps are only available for certain architectures
     if parsed_args.required_archs and Flatpak.get_default_arch() not in parsed_args.required_archs:
-        exit_with_error("Found installation of unsupported architecture: {}".format(app_arch))
-
+        exit_with_error("Found installation of unsupported architecture: {}".format(parsed_args.required_archs))
 
     InstallAppHelperLauncher(parsed_args.app_id,
                              parsed_args.remote,
                              parsed_args.old_desktop_file_name,
-                             parsed_args.no_sandbox_launcher,
                              otherargs)
     sys.exit(0)
