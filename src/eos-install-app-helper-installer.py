@@ -75,16 +75,9 @@ class InstallAppHelperInstaller:
         if self._initial_setup:
             self._wait_for_network_connectivity()
 
-        self._run_app_center_for_app(app_id, remote)
-
-        # Swap out .desktop files
-        if old_desktop_file_name:
-            self._remove_old_icon(old_desktop_file_name)
-
-        # There's a post-install procedure for automatic installations.
-        if self._initial_setup:
-            self._post_install_app(app_id)
-
+        self._run_app_center_for_app(app_id,
+                                     remote,
+                                     old_desktop_file_name)
 
     def _initial_setup_already_done(self, app_id):
         if os.path.exists(config.STAMP_FILE_INITIAL_SETUP_DONE.format(app_id=app_id)):
@@ -230,7 +223,10 @@ class InstallAppHelperInstaller:
                                                                                  default_branch)
         return app_app_center_id
 
-    def _run_app_center_for_app(self, app_id, remote):
+    def _run_app_center_for_app(self,
+                                app_id,
+                                remote,
+                                old_desktop_file_name):
         # FIXME: Ideally, we should be able to pass the app ID to GNOME Software
         # and it would do the right thing by opening the page for the app's branch matching
         # the default branch for the apps' source remote. Unfortunately, this is not the case
@@ -256,6 +252,14 @@ class InstallAppHelperInstaller:
 
         logging.info("{} successfully installed".format(app_id))
 
+        # Swap out .desktop files
+        self._remove_old_icon(old_desktop_file_name)
+
+        # There's a post-install procedure for automatic installations.
+        if self._initial_setup:
+            self._post_install_app(app_id)
+
+
 def main():
     # Send logging messages both to the console and the journal
     logging.basicConfig(level=logging.INFO)
@@ -266,7 +270,7 @@ def main():
     parser.add_argument('--initial-setup', dest='initial_setup', action='store_true')
     parser.add_argument('--app-id', dest='app_id', help='Flatpak App ID', type=str, required=True)
     parser.add_argument('--remote', dest='remote', help='Flatpak Remote', type=str, required=True)
-    parser.add_argument('--old-desktop-file-name', dest='old_desktop_file_name', help='File name for .desktop file to remove', type=str)
+    parser.add_argument('--old-desktop-file-name', dest='old_desktop_file_name', help='File name for .desktop file to remove', type=str, required=True)
     parser.add_argument('--required-archs', dest='required_archs', default=[], nargs='*', type=str)
 
     parsed_args = parser.parse_args()

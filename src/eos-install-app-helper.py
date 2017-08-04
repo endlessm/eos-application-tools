@@ -99,11 +99,10 @@ class InstallAppHelperLauncher:
                         remote,
                         old_desktop_file_name):
         try:
-            args = [os.path.join(config.PKG_DATADIR, 'eos-install-app-helper-installer.py'),
-                    '--app-id', app_id, '--remote', remote]
-            if old_desktop_file_name:
-                args += ['--old-desktop-file-name', old_desktop_file_name]
-            subprocess.Popen(args)
+            subprocess.Popen([os.path.join(config.PKG_DATADIR, 'eos-install-app-helper-installer.py'),
+                              '--app-id', app_id,
+                              '--remote', remote,
+                              '--old-desktop-file-name', old_desktop_file_name])
         except OSError as e:
             exit_with_error("Could not launch {}: {}".format(app_id, repr(e)))
 
@@ -144,7 +143,7 @@ if __name__ == '__main__':
     parser.add_argument('--debug', dest='debug', action='store_true')
     parser.add_argument('--app-id', dest='app_id', help='Flatpak App ID', type=str, required=True)
     parser.add_argument('--remote', dest='remote', help='Flatpak Remote', type=str, required=True)
-    parser.add_argument('--old-desktop-file-name', dest='old_desktop_file_name', help='File name for .desktop file to remove', type=str)
+    parser.add_argument('--old-desktop-file-name', dest='old_desktop_file_name', help='File name for .desktop file to remove', type=str, required=True)
     parser.add_argument('--required-archs', dest='required_archs', default=[], nargs='*', type=str)
     parser.add_argument('--no-sandbox-launcher', help='Name of launcher to run outside of Flatpak sandbox', dest='no_sandbox_launcher', type=str)
 
