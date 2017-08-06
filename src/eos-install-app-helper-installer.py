@@ -43,8 +43,7 @@ def exit_with_error(*args):
 class InstallAppHelperInstaller:
     def __init__(self,
                  app_id,
-                 remote,
-                 old_desktop_file_name):
+                 remote):
         try:
             self._installation = Flatpak.Installation.new_system()
         except GLib.Error as e:
@@ -56,9 +55,7 @@ class InstallAppHelperInstaller:
 
         logging.info("Could not find flatpak launcher for {}.".format(app_id))
 
-        self._run_app_center_for_app(app_id,
-                                     remote,
-                                     old_desktop_file_name)
+        self._run_app_center_for_app(app_id, remote)
 
 
     def _check_app_flatpak_launcher(self, app_id):
@@ -85,20 +82,6 @@ class InstallAppHelperInstaller:
 
         loop.run()
 
-
-    def _remove_old_icon(self, old_desktop_file_name):
-        bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
-        proxy = Gio.DBusProxy.new_sync(bus,
-                                       Gio.DBusProxyFlags.NONE,
-                                       None,
-                                       'org.gnome.Shell',
-                                       '/org/gnome/Shell',
-                                       'org.gnome.Shell.AppStore',
-                                       None)
-        proxy.call_sync('RemoveApplication',
-                        GLib.Variant('(s)', (old_desktop_file_name, )),
-                        Gio.DBusCallFlags.NO_AUTO_START, 500, None)
-
     def _get_unique_id(self, app_id, remote_name):
         app_app_center_id = app_id
 
@@ -116,10 +99,7 @@ class InstallAppHelperInstaller:
                                                                                  default_branch)
         return app_app_center_id
 
-    def _run_app_center_for_app(self,
-                                app_id,
-                                remote,
-                                old_desktop_file_name):
+    def _run_app_center_for_app(self, app_id, remote):
         # FIXME: Ideally, we should be able to pass the app ID to GNOME Software
         # and it would do the right thing by opening the page for the app's branch matching
         # the default branch for the apps' source remote. Unfortunately, this is not the case
@@ -142,9 +122,6 @@ class InstallAppHelperInstaller:
 
         logging.info("{} successfully installed".format(app_id))
 
-        # Swap out .desktop files
-        self._remove_old_icon(old_desktop_file_name)
-
 
 def main():
     # Send logging messages both to the console and the journal
@@ -155,7 +132,6 @@ def main():
     parser.add_argument('--debug', dest='debug', action='store_true')
     parser.add_argument('--app-id', dest='app_id', help='Flatpak App ID', type=str, required=True)
     parser.add_argument('--remote', dest='remote', help='Flatpak Remote', type=str, required=True)
-    parser.add_argument('--old-desktop-file-name', dest='old_desktop_file_name', help='File name for .desktop file to remove', type=str, required=True)
     parser.add_argument('--required-archs', dest='required_archs', default=[], nargs='*', type=str)
 
     parsed_args = parser.parse_args()
@@ -167,8 +143,7 @@ def main():
         exit_with_error("Found installation of unsupported architecture: {}".format(parsed_args.required_archs))
 
     InstallAppHelperInstaller(parsed_args.app_id,
-                              parsed_args.remote,
-                              parsed_args.old_desktop_file_name)
+                              parsed_args.remote)
     sys.exit(0)
 
 
