@@ -4,4 +4,7 @@
   <categories>
     <category>Blacklisted</category>
   </categories>
+  <metadata>
+    <value key="EndlessOS::replaced-by-desktop-file">org.videolan.VLC.desktop</value>
+  </metadata>
 </component>
