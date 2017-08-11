@@ -1,3 +1,5 @@
+@INTLTOOL_DESKTOP_RULE@
+
 icon64dir = $(datadir)/icons/hicolor/64x64/apps
 icon64_DATA = \
 	com.microsoft.Skype/eos-skype.png \
