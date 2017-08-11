@@ -5,12 +5,17 @@ icon64_DATA = \
 	org.videolan.VLC/eos-vlc.png \
 	$(NULL)
 
-desktopdir= $(datadir)/applications
-desktop_DATA = \
-	com.microsoft.Skype/eos-skype.desktop \
-	com.spotify.Client/eos-spotify.desktop \
-	org.videolan.VLC/eos-vlc.desktop \
+desktop_in_files = \
+	com.microsoft.Skype/eos-skype.desktop.in \
+	com.spotify.Client/eos-spotify.desktop.in \
+	org.videolan.VLC/eos-vlc.desktop.in \
 	$(NULL)
+
+desktopdir = $(datadir)/applications
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+$(desktop_DATA): %.desktop: %.desktop.in
+	$(AM_V_GEN) $(MKDIR_P) $(dir $@) && \
+	$(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 appdatadir = $(datadir)/appdata
 appdata_DATA = \
@@ -21,6 +26,10 @@ appdata_DATA = \
 
 EXTRA_DIST = \
 	$(icon64_DATA) \
-	$(desktop_DATA) \
+	$(desktop_in_files) \
 	$(appdata_DATA) \
+	$(NULL)
+
+CLEANFILES = \
+	$(desktop_DATA) \
 	$(NULL)
