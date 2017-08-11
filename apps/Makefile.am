@@ -8,6 +8,11 @@ icon64_DATA = \
 	$(NULL)
 
 desktopdir= $(datadir)/applications
+desktop_in_files = \
+	com.microsoft.Skype/eos-skype.desktop.in \
+	com.spotify.Client/eos-spotify.desktop.in \
+	org.videolan.VLC/eos-vlc.desktop.in \
+	$(NULL)
 desktop_DATA = \
 	com.microsoft.Skype/eos-skype.desktop \
 	com.spotify.Client/eos-spotify.desktop \
@@ -23,7 +28,7 @@ appdata_DATA = \
 
 EXTRA_DIST = \
 	$(icon64_DATA) \
-	$(desktop_DATA) \
+	$(desktop_in_files) \
 	$(appdata_DATA) \
 	$(NULL)
 
