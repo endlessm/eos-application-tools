@@ -14,7 +14,8 @@ desktop_in_files = \
 desktopdir = $(datadir)/applications
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 $(desktop_DATA): %.desktop: %.desktop.in
-	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
+	$(AM_V_GEN) $(MKDIR_P) $(dir $@) && \
+	$(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 appdatadir = $(datadir)/appdata
 appdata_DATA = \
