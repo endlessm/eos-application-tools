@@ -26,3 +26,7 @@ EXTRA_DIST = \
 	$(desktop_DATA) \
 	$(appdata_DATA) \
 	$(NULL)
+
+CLEANFILES = \
+	$(desktop_DATA) \
+	$(NULL)
