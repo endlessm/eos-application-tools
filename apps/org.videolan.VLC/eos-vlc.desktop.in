@@ -1,11 +1,6 @@
 [Desktop Entry]
 Version=1.0
 Name=Get VLC
-# Only KDE 4 seems to use GenericName, so we reuse the KDE strings.
-# From Ubuntu's language-pack-kde-XX-base packages, version 9.04-20090413.
-GenericName=Media Player
-# Gnome and KDE 3 uses Comment.
-Comment=Media Player
 Exec=/usr/bin/eos-install-app-helper --app-id org.videolan.VLC --remote eos-apps --required-archs x86_64 %U
 Terminal=false
 Icon=eos-vlc
