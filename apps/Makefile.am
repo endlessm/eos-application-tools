@@ -1,5 +1,3 @@
-@INTLTOOL_DESKTOP_RULE@
-
 icon64dir = $(datadir)/icons/hicolor/64x64/apps
 icon64_DATA = \
 	com.microsoft.Skype/eos-skype.png \
@@ -7,17 +5,16 @@ icon64_DATA = \
 	org.videolan.VLC/eos-vlc.png \
 	$(NULL)
 
-desktopdir= $(datadir)/applications
 desktop_in_files = \
 	com.microsoft.Skype/eos-skype.desktop.in \
 	com.spotify.Client/eos-spotify.desktop.in \
 	org.videolan.VLC/eos-vlc.desktop.in \
 	$(NULL)
-desktop_DATA = \
-	com.microsoft.Skype/eos-skype.desktop \
-	com.spotify.Client/eos-spotify.desktop \
-	org.videolan.VLC/eos-vlc.desktop \
-	$(NULL)
+
+desktopdir = $(datadir)/applications
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+$(desktop_DATA): %.desktop: %.desktop.in
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 appdatadir = $(datadir)/appdata
 appdata_DATA = \
