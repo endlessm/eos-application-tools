@@ -5,3 +5,4 @@ Exec=/usr/bin/eos-install-app-helper --app-id com.spotify.Client --remote eos-ap
 Terminal=false
 Icon=eos-spotify
 Type=Application
+X-Endless-Replaced-By=org.spotify.Client.desktop

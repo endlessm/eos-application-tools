@@ -5,3 +5,4 @@ Exec=/usr/bin/eos-install-app-helper --app-id org.videolan.VLC --remote eos-apps
 Terminal=false
 Icon=eos-vlc
 Type=Application
+X-Endless-Replaced-By=org.videolan.VLC.desktop
