@@ -1,3 +1,3 @@
-SUBDIRS = src apps po
+SUBDIRS = src apps po data
 
 -include $(top_srcdir)/git.mk
