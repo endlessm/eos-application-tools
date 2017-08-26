@@ -45,6 +45,7 @@ class InstallAppHelperLauncher:
     def __init__(self,
                  app_id,
                  remote,
+                 source_app_id,
                  params):
         self._params = params
         try:
@@ -52,9 +53,9 @@ class InstallAppHelperLauncher:
         except GLib.Error as e:
             exit_with_error("Could not find current system installation: {}".format(repr(e)))
 
-        self._start(app_id, remote)
+        self._start(app_id, remote, source_app_id)
 
-    def _start(self, app_id, remote):
+    def _start(self, app_id, remote, source_app_id):
         is_installed = self._is_flatpak_installed(app_id)
         if is_installed:
             logging.info("Flatpak for {} found. Launching...".format(app_id))
@@ -62,7 +63,8 @@ class InstallAppHelperLauncher:
         else:
             logging.info("Could not find flatpak for {}. Running installation script...".format(app_id))
             self._install_app_id(app_id,
-                                 remote)
+                                 remote,
+                                 source_app_id)
 
     def _run_app(self, app_id, params):
         logging.info("Launching {} flatpak app through desktop file".format(app_id))
@@ -78,11 +80,12 @@ class InstallAppHelperLauncher:
 
     def _install_app_id(self,
                         app_id,
-                        remote):
+                        remote,
+                        source_app_id):
         try:
             subprocess.Popen([os.path.join(config.PKG_DATADIR, 'eos-install-app-helper-installer.py'),
                               '--app-id', app_id,
-                              '--remote', remote])
+                              '--remote', remote] + (['--source-app-id', source_app_id] if source_app_id else []))
         except OSError as e:
             exit_with_error("Could not launch {}: {}".format(app_id, repr(e)))
 
@@ -122,6 +125,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', dest='debug', action='store_true')
     parser.add_argument('--app-id', dest='app_id', help='Flatpak App ID', type=str, required=True)
+    parser.add_argument('--source-app-id', dest='source_app_id', help='App ID to be replaced', type=str)
     parser.add_argument('--remote', dest='remote', help='Flatpak Remote', type=str, required=True)
     parser.add_argument('--required-archs', dest='required_archs', default=[], nargs='*', type=str)
 
@@ -136,5 +140,6 @@ if __name__ == '__main__':
 
     InstallAppHelperLauncher(parsed_args.app_id,
                              parsed_args.remote,
+                             parsed_args.source_app_id,
                              otherargs)
     sys.exit(0)

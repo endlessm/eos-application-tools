@@ -40,10 +40,35 @@ def exit_with_error(*args):
     sys.exit(1)
 
 
+def refine_source_app(source_app_id):
+    '''Ensure that the souce app is refined in the software center.
+
+    We need to perform this step if we want the souce app's icon to be
+    replaced, since going directly to an app in the app center does not
+    refine the other apps.
+    '''
+    logging.info("Refining source app {}".format(source_app_id))
+    conn = Gio.bus_get_sync(Gio.BusType.SESSION, None)
+    conn.call_sync('org.gnome.Software',
+                   '/org/gnome/Software',
+                   'org.gtk.Actions',
+                   'Activate',
+                   GLib.Variant('(sava{sv})',
+                                ('refine',
+                                 [GLib.Variant('(ss)',
+                                  ('eos-vlc.desktop', 'all'))],
+                                 {})),
+                   None,
+                   Gio.DBusCallFlags.NONE,
+                   -1,
+                   None)
+
+
 class InstallAppHelperInstaller:
     def __init__(self,
                  app_id,
-                 remote):
+                 remote,
+                 source_app_id):
         try:
             self._installation = Flatpak.Installation.new_system()
         except GLib.Error as e:
@@ -55,7 +80,7 @@ class InstallAppHelperInstaller:
 
         logging.info("Could not find flatpak launcher for {}.".format(app_id))
 
-        self._run_app_center_for_app(app_id, remote)
+        self._run_app_center_for_app(app_id, remote, source_app_id)
 
 
     def _check_app_flatpak_launcher(self, app_id):
@@ -99,7 +124,7 @@ class InstallAppHelperInstaller:
                                                                                  default_branch)
         return app_app_center_id
 
-    def _run_app_center_for_app(self, app_id, remote):
+    def _run_app_center_for_app(self, app_id, remote, source_app_id):
         # FIXME: Ideally, we should be able to pass the app ID to GNOME Software
         # and it would do the right thing by opening the page for the app's branch matching
         # the default branch for the apps' source remote. Unfortunately, this is not the case
@@ -115,6 +140,8 @@ class InstallAppHelperInstaller:
         except OSError as e:
             exit_with_error("Could not launch {}: {}".format(app_id, repr(e)))
 
+        if source_app_id:
+            refine_source_app(source_app_id)
         self._wait_for_installation(app_id)
 
         if not self._check_app_flatpak_launcher(app_id):
@@ -131,6 +158,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', dest='debug', action='store_true')
     parser.add_argument('--app-id', dest='app_id', help='Flatpak App ID', type=str, required=True)
+    parser.add_argument('--source-app-id', dest='source_app_id', help='App ID to be replaced', type=str)
     parser.add_argument('--remote', dest='remote', help='Flatpak Remote', type=str, required=True)
     parser.add_argument('--required-archs', dest='required_archs', default=[], nargs='*', type=str)
 
@@ -143,7 +171,8 @@ def main():
         exit_with_error("Found installation of unsupported architecture: {}".format(parsed_args.required_archs))
 
     InstallAppHelperInstaller(parsed_args.app_id,
-                              parsed_args.remote)
+                              parsed_args.remote,
+                              parsed_args.source_app_id)
     sys.exit(0)
 
 
