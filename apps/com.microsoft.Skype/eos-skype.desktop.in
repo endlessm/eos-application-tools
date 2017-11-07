@@ -5,4 +5,4 @@ Exec=/usr/bin/eos-install-app-helper --app-id com.microsoft.Skype --remote eos-a
 Terminal=false
 Icon=eos-skype
 Type=Application
-X-Endless-Replaced-By=org.skype.Skype.desktop
+X-Endless-Replaced-By=com.microsoft.Skype.desktop
