@@ -6,4 +6,4 @@ dist_iconoverrides_DATA = eos-icon-overrides.ini
 # already been uninstalled).
 flatpaksdir = $(datadir)/eos-application-tools/flatpak-autoinstall.d
 
-dist_flatpaks_DATA = 10-autoinstall.conf
+dist_flatpaks_DATA = 10-default.json
