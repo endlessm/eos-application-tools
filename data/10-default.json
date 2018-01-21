@@ -5,6 +5,7 @@
     "ref-kind": "app",
     "name": "com.endlessm.CompanionAppService",
     "collection-id": "com.endlessm.Apps",
-    "remote": "eos-apps"
+    "remote": "eos-apps",
+    "branch": "master"
   }
 ]
