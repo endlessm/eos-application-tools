@@ -1,0 +1,20 @@
+[
+  {
+    "action": "install",
+    "serial": 2018011300,
+    "ref-kind": "app",
+    "collection-id": "com.endlessm.Apps",
+    "remote": "eos-apps",
+    "name": "com.endlessm.CompanionAppService",
+    "branch": "master"
+  },
+  {
+    "action": "install",
+    "serial": 2018012300,
+    "ref-kind": "runtime",
+    "collection-id": "com.endlessm.Sdk",
+    "remote": "eos-sdk",
+    "name": "org.freedesktop.Platform.Icontheme.EndlessOS",
+    "branch": "1.0"
+  }
+]
