@@ -6,7 +6,7 @@
     "collection-id": "com.endlessm.Apps",
     "remote": "eos-apps",
     "name": "com.endlessm.CompanionAppService",
-    "branch": "master"
+    "branch": "eos3"
   },
   {
     "action": "install",
