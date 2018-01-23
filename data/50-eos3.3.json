@@ -1,0 +1,11 @@
+[
+  {
+    "action": "install",
+    "serial": 2018012300,
+    "ref-kind": "runtime",
+    "collection-id": "com.endlessm.Sdk",
+    "remote": "eos-sdk",
+    "name": "org.freedesktop.Platform.Icontheme.EndlessOS",
+    "branch": "1.0"
+  }
+]
