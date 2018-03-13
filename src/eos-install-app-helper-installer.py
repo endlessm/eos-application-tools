@@ -43,7 +43,8 @@ def exit_with_error(*args):
 class InstallAppHelperInstaller:
     def __init__(self,
                  app_id,
-                 remote):
+                 remote,
+                 branch):
         try:
             self._installation = Flatpak.Installation.new_system()
         except GLib.Error as e:
@@ -55,7 +56,7 @@ class InstallAppHelperInstaller:
 
         logging.info("Could not find flatpak launcher for {}.".format(app_id))
 
-        self._run_app_center_for_app(app_id, remote)
+        self._run_app_center_for_app(app_id, remote, branch)
 
 
     def _check_app_flatpak_launcher(self, app_id):
@@ -82,30 +83,32 @@ class InstallAppHelperInstaller:
 
         loop.run()
 
-    def _get_unique_id(self, app_id, remote_name):
+    def _get_unique_id(self, app_id, remote_name, branch):
         app_app_center_id = app_id
 
-        default_branch = None
         try:
             remote = self._installation.get_remote_by_name(remote_name)
         except GLib.Error as e:
             logging.warning("Could not find flatpak remote {}: {}".format(remote, str(e)))
 
-        # Get the default branch now to construct the full unique ID GNOME Software expects.
-        default_branch = remote.get_default_branch()
-        if default_branch:
+        # Get the default branch if no branch has been given, as it's needed to construct
+        # the full unique ID GNOME Software expects.
+        if not branch:
+            branch = remote.get_default_branch()
+
+        if branch:
             app_app_center_id = 'system/flatpak/{}/desktop/{}.desktop/{}'.format(remote_name,
                                                                                  app_id,
-                                                                                 default_branch)
+                                                                                 branch)
         return app_app_center_id
 
-    def _run_app_center_for_app(self, app_id, remote):
+    def _run_app_center_for_app(self, app_id, remote, branch):
         # FIXME: Ideally, we should be able to pass the app ID to GNOME Software
         # and it would do the right thing by opening the page for the app's branch matching
         # the default branch for the apps' source remote. Unfortunately, this is not the case
         # at the moment and fixing it is non-trivial, so we'll construct the full unique ID
         # that GNOME Software expects, right from here, based on the remote's metadata.
-        unique_id = self._get_unique_id(app_id, remote)
+        unique_id = self._get_unique_id(app_id, remote, branch)
 
         logging.info("Opening App Center for {}...".format(unique_id))
         app_center_argv = ['gnome-software', '--details={}'.format(unique_id)]
@@ -132,6 +135,7 @@ def main():
     parser.add_argument('--debug', dest='debug', action='store_true')
     parser.add_argument('--app-id', dest='app_id', help='Flatpak App ID', type=str, required=True)
     parser.add_argument('--remote', dest='remote', help='Flatpak Remote', type=str, required=True)
+    parser.add_argument('--branch', dest='branch', help='Flatpak Branch', type=str, default='', required=False)
     parser.add_argument('--required-archs', dest='required_archs', default=[], nargs='*', type=str)
 
     parsed_args = parser.parse_args()
@@ -143,7 +147,8 @@ def main():
         exit_with_error("Found installation of unsupported architecture: {}".format(parsed_args.required_archs))
 
     InstallAppHelperInstaller(parsed_args.app_id,
-                              parsed_args.remote)
+                              parsed_args.remote,
+                              parsed_args.branch)
     sys.exit(0)
 
 
