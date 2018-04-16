@@ -10,7 +10,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: mario@endlessm.com\n"
 "POT-Creation-Date: 2017-09-05 20:48-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Language-Team: Czech (https://www.transifex.com/endless-mobile-inc/teams/9016/cs/)\n"
+"Last-Translator: Martin Jelen <marty.jelen@seznam.cz>, 2018\n"
+"Language-Team: Czech (https://www.transifex.com/endless-os/teams/9016/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,32 +20,32 @@ msgstr ""
 
 #: apps/com.dropbox.Client/eos-dropbox.desktop.in:4
 msgid "Get Dropbox"
-msgstr ""
+msgstr "Získat Dropbox"
 
 #: apps/com.dropbox.Client/eos-dropbox.desktop.in:7
 msgid "eos-dropbox"
-msgstr ""
+msgstr "eos-dropbox"
 
 #: apps/com.microsoft.Skype/eos-skype.desktop.in:4
 msgid "Get Skype"
-msgstr ""
+msgstr "Získat Skype"
 
 #: apps/com.microsoft.Skype/eos-skype.desktop.in:7
 msgid "eos-skype"
-msgstr ""
+msgstr "eos-skype"
 
 #: apps/com.spotify.Client/eos-spotify.desktop.in:4
 msgid "Get Spotify"
-msgstr ""
+msgstr "Získat Spotify"
 
 #: apps/com.spotify.Client/eos-spotify.desktop.in:7
 msgid "eos-spotify"
-msgstr ""
+msgstr "eos-spotify"
 
 #: apps/org.videolan.VLC/eos-vlc.desktop.in:4
 msgid "Get VLC"
-msgstr ""
+msgstr "Získat VLC"
 
 #: apps/org.videolan.VLC/eos-vlc.desktop.in:7
 msgid "eos-vlc"
-msgstr ""
+msgstr "eos-vlc"
