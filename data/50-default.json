@@ -16,5 +16,14 @@
     "remote": "eos-sdk",
     "name": "org.freedesktop.Platform.Icontheme.EndlessOS",
     "branch": "1.0"
+  },
+  {
+    "action": "install",
+    "serial": 2018041700,
+    "ref-kind": "app",
+    "collection-id": "org.flathub.Stable",
+    "remote": "flathub",
+    "name": "org.libreoffice.LibreOffice",
+    "branch": "stable"
   }
 ]
