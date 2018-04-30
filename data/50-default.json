@@ -25,5 +25,21 @@
     "remote": "flathub",
     "name": "org.libreoffice.LibreOffice",
     "branch": "stable"
+  },
+  {
+    "action": "uninstall",
+    "serial": 2018043000,
+    "ref-kind": "app",
+    "name": "com.endlessm.CompanionAppService",
+    "branch": "eos3"
+  },
+  {
+    "action": "install",
+    "serial": 2018043001,
+    "ref-kind": "app",
+    "collection-id": "com.endlessm.Sdk",
+    "remote": "eos-sdk",
+    "name": "com.endlessm.CompanionAppService",
+    "branch": "stable"
   }
 ]
