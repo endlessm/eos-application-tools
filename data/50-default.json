@@ -41,5 +41,35 @@
     "remote": "eos-sdk",
     "name": "com.endlessm.CompanionAppService",
     "branch": "stable"
+  },
+  {
+    "action": "uninstall",
+    "serial": 2018050100,
+    "ref-kind": "app",
+    "name": "com.endlessm.EknServices",
+    "branch": "eos3"
+  },
+  {
+    "action": "uninstall",
+    "serial": 2018050101,
+    "ref-kind": "app",
+    "name": "com.endlessm.EknServices2",
+    "branch": "stable"
+  },
+  {
+    "action": "uninstall",
+    "serial": 2018050102,
+    "ref-kind": "app",
+    "name": "com.endlessm.EknServices3",
+    "branch": "stable"
+  },
+  {
+    "action": "install",
+    "serial": 2018050103,
+    "ref-kind": "app",
+    "collection-id": "com.endlessm.Sdk",
+    "remote": "eos-sdk",
+    "name": "com.endlessm.EknServicesMultiplexer",
+    "branch": "stable"
   }
 ]
