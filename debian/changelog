@@ -1,3 +1,12 @@
+eos-application-tools (1.0.4) eos; urgency=medium
+
+  * Split Flatpak auto-installation JSON files to architecture-independent
+    eos-flatpak-autoinstall package so they are included on ARM systems.
+
+  https://phabricator.endlessm.com/T22652
+
+ -- Robert McQueen <rob@endlessm.com>  Mon, 21 May 2018 16:53:47 +0100
+
 eos-application-tools (1.0.3) eos; urgency=medium
 
   * Remove eos-browser-helper and Google Chrome specifics from this package,
