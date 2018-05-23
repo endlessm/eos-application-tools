@@ -23,6 +23,8 @@ Description: Wrapper application for desktop launchers
 
 Package: eos-flatpak-autoinstall
 Architecture: all
+Replaces: eos-install-app-helper (<< 1.0.4)
+Breaks: eos-install-app-helper (<< 1.0.4)
 Description: data files of automatic Flatpak operations for upgrades
  These JSON files are used by the updater (since Endless OS 3.4.0) to enumerate
  the Flatpak install, uninstall and update operations which should be carried
