@@ -1,14 +1,14 @@
 icon64dir = $(datadir)/icons/hicolor/64x64/apps
 icon64_DATA = \
 	com.dropbox.Client/eos-dropbox.png \
-	com.microsoft.Skype/eos-skype.png \
+	com.skype.Client/eos-skype.png \
 	com.spotify.Client/eos-spotify.png \
 	org.videolan.VLC/eos-vlc.png \
 	$(NULL)
 
 desktop_in_files = \
 	com.dropbox.Client/eos-dropbox.desktop.in \
-	com.microsoft.Skype/eos-skype.desktop.in \
+	com.skype.Client/eos-skype.desktop.in \
 	com.spotify.Client/eos-spotify.desktop.in \
 	org.videolan.VLC/eos-vlc.desktop.in \
 	$(NULL)
@@ -22,7 +22,7 @@ $(desktop_DATA): %.desktop: %.desktop.in
 appdatadir = $(datadir)/appdata
 appdata_DATA = \
 	com.dropbox.Client/eos-dropbox.appdata.xml \
-	com.microsoft.Skype/eos-skype.appdata.xml \
+	com.skype.Client/eos-skype.appdata.xml \
 	com.spotify.Client/eos-spotify.appdata.xml \
 	org.videolan.VLC/eos-vlc.appdata.xml \
 	$(NULL)
