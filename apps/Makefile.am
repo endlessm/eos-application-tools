@@ -3,6 +3,7 @@ icon64_DATA = \
 	com.dropbox.Client/eos-dropbox.png \
 	com.skype.Client/eos-skype.png \
 	com.spotify.Client/eos-spotify.png \
+	com.unity.UnityHub/eos-unity.png \
 	org.videolan.VLC/eos-vlc.png \
 	$(NULL)
 
@@ -10,6 +11,7 @@ desktop_in_files = \
 	com.dropbox.Client/eos-dropbox.desktop.in \
 	com.skype.Client/eos-skype.desktop.in \
 	com.spotify.Client/eos-spotify.desktop.in \
+	com.unity.UnityHub/eos-unity.desktop.in \
 	org.videolan.VLC/eos-vlc.desktop.in \
 	$(NULL)
 
@@ -24,6 +26,7 @@ appdata_DATA = \
 	com.dropbox.Client/eos-dropbox.appdata.xml \
 	com.skype.Client/eos-skype.appdata.xml \
 	com.spotify.Client/eos-spotify.appdata.xml \
+	com.unity.UnityHub/eos-unity.appdata.xml \
 	org.videolan.VLC/eos-vlc.appdata.xml \
 	$(NULL)
 
