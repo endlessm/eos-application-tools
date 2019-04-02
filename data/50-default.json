@@ -71,5 +71,12 @@
     "remote": "eos-sdk",
     "name": "com.endlessm.EknServicesMultiplexer",
     "branch": "stable"
+  },
+  {
+    "action": "uninstall",
+    "serial": 2019032800,
+    "ref-kind": "app",
+    "name": "com.endlessm.CompanionAppService",
+    "branch": "stable"
   }
 ]
