@@ -1,6 +1,7 @@
 icon64dir = $(datadir)/icons/hicolor/64x64/apps
 icon64_DATA = \
 	com.dropbox.Client/eos-dropbox.png \
+	com.google.AndroidStudio/eos-android-studio.png \
 	com.skype.Client/eos-skype.png \
 	com.spotify.Client/eos-spotify.png \
 	com.unity.UnityHub/eos-unity.png \
@@ -9,6 +10,7 @@ icon64_DATA = \
 
 desktop_in_files = \
 	com.dropbox.Client/eos-dropbox.desktop.in \
+	com.google.AndroidStudio/eos-android-studio.desktop.in \
 	com.skype.Client/eos-skype.desktop.in \
 	com.spotify.Client/eos-spotify.desktop.in \
 	com.unity.UnityHub/eos-unity.desktop.in \
@@ -24,6 +26,7 @@ $(desktop_DATA): %.desktop: %.desktop.in
 appdatadir = $(datadir)/appdata
 appdata_DATA = \
 	com.dropbox.Client/eos-dropbox.appdata.xml \
+	com.google.AndroidStudio/eos-android-studio.appdata.xml \
 	com.skype.Client/eos-skype.appdata.xml \
 	com.spotify.Client/eos-spotify.appdata.xml \
 	com.unity.UnityHub/eos-unity.appdata.xml \
