@@ -1,4 +1,5 @@
 apps/com.dropbox.Client/eos-dropbox.desktop.in
+apps/com.google.AndroidStudio/eos-android-studio.desktop.in
 apps/com.skype.Client/eos-skype.desktop.in
 apps/com.spotify.Client/eos-spotify.desktop.in
 apps/com.unity.UnityHub/eos-unity.desktop.in
