@@ -1,4 +1,11 @@
 apps/com.dropbox.Client/eos-dropbox.desktop.in
+apps/com.endlessnetwork.MidnightmareTeddy/eos-get-com.endlessnetwork.MidnightmareTeddy.desktop.in
+apps/com.endlessnetwork.aqueducts/eos-get-com.endlessnetwork.aqueducts.desktop.in
+apps/com.endlessnetwork.dragonsapprentice/eos-get-com.endlessnetwork.dragonsapprentice.desktop.in
+apps/com.endlessnetwork.frogsquash/eos-get-com.endlessnetwork.frogsquash.desktop.in
+apps/com.endlessnetwork.missilemath/eos-get-com.endlessnetwork.missilemath.desktop.in
+apps/com.endlessnetwork.passage/eos-get-com.endlessnetwork.passage.desktop.in
+apps/com.endlessnetwork.tankwarriors/eos-get-com.endlessnetwork.tankwarriors.desktop.in
 apps/com.google.AndroidStudio/eos-android-studio.desktop.in
 apps/com.skype.Client/eos-skype.desktop.in
 apps/com.spotify.Client/eos-spotify.desktop.in
