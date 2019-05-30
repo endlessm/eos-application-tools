@@ -78,5 +78,12 @@
     "ref-kind": "app",
     "name": "com.endlessm.CompanionAppService",
     "branch": "stable"
+  },
+  {
+    "action": "uninstall",
+    "serial": 2019053000,
+    "ref-kind": "runtime",
+    "name": "com.endlessm.CompanionAppService.Locale",
+    "branch": "stable"
   }
 ]
