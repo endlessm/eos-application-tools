@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Get The Passage
+Exec=/usr/bin/eos-install-app-helper --app-id com.endlessnetwork.passage --remote flathub --branch stable --required-archs x86_64 %U
+Terminal=false
+Icon=eos-get-com.endlessnetwork.passage
+Type=Application
+X-Endless-Replaced-By=com.endlessnetwork.passage.desktop
