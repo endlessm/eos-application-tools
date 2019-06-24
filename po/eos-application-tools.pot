@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eos-application-tools 1.0.2\n"
 "Report-Msgid-Bugs-To: emdev@endlessm.com\n"
-"POT-Creation-Date: 2019-03-30 12:34+0000\n"
+"POT-Creation-Date: 2019-06-24 20:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,72 @@ msgstr ""
 
 #: apps/com.dropbox.Client/eos-dropbox.desktop.in:7
 msgid "eos-dropbox"
+msgstr ""
+
+#: apps/com.endlessnetwork.MidnightmareTeddy/eos-get-com.endlessnetwork.MidnightmareTeddy.desktop.in:4
+msgid "Get Midnightmare Teddy"
+msgstr ""
+
+#: apps/com.endlessnetwork.MidnightmareTeddy/eos-get-com.endlessnetwork.MidnightmareTeddy.desktop.in:7
+msgid "eos-get-com.endlessnetwork.MidnightmareTeddy"
+msgstr ""
+
+#: apps/com.endlessnetwork.aqueducts/eos-get-com.endlessnetwork.aqueducts.desktop.in:4
+msgid "Get Aqueducts"
+msgstr ""
+
+#: apps/com.endlessnetwork.aqueducts/eos-get-com.endlessnetwork.aqueducts.desktop.in:7
+msgid "eos-get-com.endlessnetwork.aqueducts"
+msgstr ""
+
+#: apps/com.endlessnetwork.dragonsapprentice/eos-get-com.endlessnetwork.dragonsapprentice.desktop.in:4
+msgid "Get Dragon's Apprentice"
+msgstr ""
+
+#: apps/com.endlessnetwork.dragonsapprentice/eos-get-com.endlessnetwork.dragonsapprentice.desktop.in:7
+msgid "eos-get-com.endlessnetwork.dragonsapprentice"
+msgstr ""
+
+#: apps/com.endlessnetwork.frogsquash/eos-get-com.endlessnetwork.frogsquash.desktop.in:4
+msgid "Get Frog Squash"
+msgstr ""
+
+#: apps/com.endlessnetwork.frogsquash/eos-get-com.endlessnetwork.frogsquash.desktop.in:7
+msgid "eos-get-com.endlessnetwork.frogsquash"
+msgstr ""
+
+#: apps/com.endlessnetwork.missilemath/eos-get-com.endlessnetwork.missilemath.desktop.in:4
+msgid "Get Missile Math"
+msgstr ""
+
+#: apps/com.endlessnetwork.missilemath/eos-get-com.endlessnetwork.missilemath.desktop.in:7
+msgid "eos-get-com.endlessnetwork.missilemath"
+msgstr ""
+
+#: apps/com.endlessnetwork.passage/eos-get-com.endlessnetwork.passage.desktop.in:4
+msgid "Get The Passage"
+msgstr ""
+
+#: apps/com.endlessnetwork.passage/eos-get-com.endlessnetwork.passage.desktop.in:7
+msgid "eos-get-com.endlessnetwork.passage"
+msgstr ""
+
+#: apps/com.endlessnetwork.tankwarriors/eos-get-com.endlessnetwork.tankwarriors.desktop.in:4
+msgid "Get Tank Warriors"
+msgstr ""
+
+#: apps/com.endlessnetwork.tankwarriors/eos-get-com.endlessnetwork.tankwarriors.desktop.in:7
+msgid "eos-get-com.endlessnetwork.tankwarriors"
+msgstr ""
+
+#. TRANSLATORS: "Android Studio" is the name of an application. Please do not translate it
+#: apps/com.google.AndroidStudio/eos-android-studio.desktop.in:5
+msgid "Get Android Studio"
+msgstr ""
+
+#. TRANSLATORS: don't translate this
+#: apps/com.google.AndroidStudio/eos-android-studio.desktop.in:9
+msgid "eos-android-studio"
 msgstr ""
 
 #: apps/com.skype.Client/eos-skype.desktop.in:4
