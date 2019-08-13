@@ -97,9 +97,9 @@ class InstallAppHelperInstaller:
             branch = remote.get_default_branch()
 
         if branch:
-            app_app_center_id = 'system/flatpak/{}/desktop/{}.desktop/{}'.format(remote_name,
-                                                                                 app_id,
-                                                                                 branch)
+            app_app_center_id = 'system/flatpak/{}/desktop/{}/{}'.format(remote_name,
+                                                                         app_id,
+                                                                         branch)
         return app_app_center_id
 
     def _run_app_center_for_app(self, app_id, remote, branch):
