@@ -85,5 +85,48 @@
     "ref-kind": "runtime",
     "name": "com.endlessm.CompanionAppService.Locale",
     "branch": "stable"
+  },
+  {
+    "action": "install",
+    "serial": 2019102100,
+    "ref-kind": "app",
+    "collection-id": "com.endlessm.Apps",
+    "remote": "eos-apps",
+    "name": "com.hack_computer.Clubhouse",
+    "branch": "eos3",
+    "filters": {
+        "architecture": ["x86_64"]
+    }
+  },
+  {
+    "action": "install",
+    "serial": 2019102200,
+    "ref-kind": "app",
+    "collection-id": "com.endlessm.Apps",
+    "remote": "eos-apps",
+    "name": "com.hack_computer.OperatingSystemApp",
+    "branch": "eos3",
+    "filters": {
+        "architecture": ["x86_64"]
+    }
+  },
+  {
+    "action": "install",
+    "serial": 2019102300,
+    "ref-kind": "app",
+    "collection-id": "com.endlessm.Apps",
+    "remote": "eos-apps",
+    "name": "com.hack_computer.ProjectLibrary",
+    "branch": "eos3",
+    "filters": {
+        "architecture": ["x86_64"]
+    }
+  },
+  {
+    "action": "uninstall",
+    "serial": 2019102400,
+    "ref-kind": "app",
+    "name": "com.endlessm.Clubhouse",
+    "branch": "stable"
   }
 ]
