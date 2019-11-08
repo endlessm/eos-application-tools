@@ -128,5 +128,12 @@
     "ref-kind": "app",
     "name": "com.endlessm.Clubhouse",
     "branch": "stable"
+  },
+  {
+    "action": "uninstall",
+    "serial": 2019102500,
+    "ref-kind": "app",
+    "name": "com.endlessm.OperatingSystemApp",
+    "branch": "stable"
   }
 ]
