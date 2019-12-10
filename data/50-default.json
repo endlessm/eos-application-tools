@@ -135,5 +135,24 @@
     "ref-kind": "app",
     "name": "com.endlessm.OperatingSystemApp",
     "branch": "stable"
+  },
+  {
+    "action": "install",
+    "serial": 2019120900,
+    "ref-kind": "app",
+    "collection-id": "com.endlessm.Apps",
+    "remote": "eos-apps",
+    "name": "com.hack_computer.Sidetrack",
+    "branch": "eos3",
+    "filters": {
+        "architecture": ["x86_64"]
+    }
+  },
+  {
+    "action": "uninstall",
+    "serial": 2019121000,
+    "ref-kind": "app",
+    "name": "com.endlessm.Sidetrack",
+    "branch": "stable"
   }
 ]
