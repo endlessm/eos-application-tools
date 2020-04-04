@@ -154,5 +154,12 @@
     "ref-kind": "app",
     "name": "com.endlessm.Sidetrack",
     "branch": "stable"
+  },
+  {
+    "action": "update",
+    "serial": 2020040300,
+    "ref-kind": "app",
+    "name": "com.hack_computer.Clubhouse",
+    "branch": "eos3"
   }
 ]
