@@ -29,6 +29,7 @@ desktop_in_files = \
 	com.spotify.Client/eos-spotify.desktop.in \
 	com.unity.UnityHub/eos-unity.desktop.in \
 	org.videolan.VLC/eos-vlc.desktop.in \
+	us.zoom.Zoom/eos-get-us.zoom.Zoom.desktop.in \
 	$(NULL)
 
 desktopdir = $(datadir)/applications
