@@ -5,4 +5,4 @@ Exec=/usr/bin/eos-install-app-helper --app-id com.skype.Client --remote flathub 
 Terminal=false
 Icon=eos-skype
 Type=Application
-X-Endless-Replaced-By=com.microsoft.Skype.desktop
+X-Endless-Replaced-By=com.skype.Client.desktop
