@@ -161,5 +161,14 @@
     "ref-kind": "app",
     "name": "com.hack_computer.Clubhouse",
     "branch": "eos3"
+  },
+  {
+    "action": "install",
+    "serial": 2020090700,
+    "ref-kind": "app",
+    "collection-id": "org.flathub.Stable",
+    "remote": "flathub",
+    "name": "org.gnome.Totem",
+    "branch": "stable"
   }
 ]
