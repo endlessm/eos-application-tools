@@ -1,3 +1,3 @@
-SUBDIRS = src po data
+SUBDIRS = src data
 
 -include $(top_srcdir)/git.mk
