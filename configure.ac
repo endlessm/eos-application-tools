@@ -17,7 +17,6 @@ AC_SUBST(INSTALL_APP_HELPER_NAME, "eos-install-app-helper")
 AC_CONFIG_FILES([
 Makefile
 src/Makefile
-apps/Makefile
 data/Makefile
 po/Makefile.in
 ])

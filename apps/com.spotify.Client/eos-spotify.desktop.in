@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Name=Get Spotify
-Exec=/usr/bin/eos-install-app-helper --app-id com.spotify.Client --remote flathub --branch stable --required-archs x86_64 %U
-Terminal=false
-Icon=eos-spotify
-Type=Application
-X-Endless-Replaced-By=com.spotify.Client.desktop
