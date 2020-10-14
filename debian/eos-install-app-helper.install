@@ -1,7 +1,4 @@
 usr/bin
-usr/share/appdata
-usr/share/applications
 usr/share/eos-application-tools/icon-overrides
 usr/share/eos-install-app-helper
-usr/share/icons
 usr/share/locale
