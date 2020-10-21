@@ -170,5 +170,12 @@
     "remote": "flathub",
     "name": "org.gnome.Totem",
     "branch": "stable"
+  },
+  {
+    "action": "uninstall",
+    "serial": 2020102100,
+    "ref-kind": "runtime",
+    "name": "org.freedesktop.Platform.Icontheme.EndlessOS",
+    "branch": "1.0"
   }
 ]
