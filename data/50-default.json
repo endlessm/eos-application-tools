@@ -177,5 +177,12 @@
     "ref-kind": "runtime",
     "name": "org.freedesktop.Platform.Icontheme.EndlessOS",
     "branch": "1.0"
+  },
+  {
+    "action": "update",
+    "serial": 2020110600,
+    "ref-kind": "app",
+    "name": "com.hack_computer.Clubhouse",
+    "branch": "eos3"
   }
 ]
