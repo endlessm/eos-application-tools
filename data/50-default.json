@@ -177,5 +177,11 @@
     "ref-kind": "app",
     "name": "com.hack_computer.Clubhouse",
     "branch": "eos3"
+  },
+    "action": "uninstall",
+    "serial": 2020102100,
+    "ref-kind": "runtime",
+    "name": "org.freedesktop.Platform.Icontheme.EndlessOS",
+    "branch": "1.0"
   }
 ]
