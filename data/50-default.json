@@ -170,5 +170,12 @@
     "remote": "flathub",
     "name": "org.gnome.Totem",
     "branch": "stable"
+  },
+  {
+    "action": "update",
+    "serial": 2020110600,
+    "ref-kind": "app",
+    "name": "com.hack_computer.Clubhouse",
+    "branch": "eos3"
   }
 ]
