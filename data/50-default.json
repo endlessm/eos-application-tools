@@ -168,5 +168,14 @@
     "filters": {
         "architecture": ["x86_64"]
     }
+  },
+  {
+    "action": "install",
+    "serial": 2020120200,
+    "ref-kind": "app",
+    "collection-id": "org.flathub.Stable",
+    "remote": "flathub",
+    "name": "org.chromium.Chromium",
+    "branch": "stable"
   }
 ]
