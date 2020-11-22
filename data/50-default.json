@@ -184,5 +184,15 @@
     "ref-kind": "runtime",
     "name": "org.freedesktop.Platform.Icontheme.EndlessOS",
     "branch": "1.0"
+  },
+  {
+    "action": "uninstall",
+    "serial": 2020110500,
+    "ref-kind": "app",
+    "name": "com.hack_computer.ProjectLibrary",
+    "branch": "eos3",
+    "filters": {
+        "architecture": ["x86_64"]
+    }
   }
 ]
