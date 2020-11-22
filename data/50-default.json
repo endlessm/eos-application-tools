@@ -187,7 +187,7 @@
   },
   {
     "action": "uninstall",
-    "serial": 2020110500,
+    "serial": 2020112200,
     "ref-kind": "app",
     "name": "com.hack_computer.ProjectLibrary",
     "branch": "eos3",
