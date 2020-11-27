@@ -90,10 +90,10 @@
     "action": "install",
     "serial": 2019102100,
     "ref-kind": "app",
-    "collection-id": "com.endlessm.Apps",
-    "remote": "eos-apps",
+    "collection-id": "org.flathub.Stable",
+    "remote": "flathub",
     "name": "com.hack_computer.Clubhouse",
-    "branch": "eos3",
+    "branch": "stable",
     "filters": {
         "architecture": ["x86_64"]
     }
@@ -102,22 +102,10 @@
     "action": "install",
     "serial": 2019102200,
     "ref-kind": "app",
-    "collection-id": "com.endlessm.Apps",
-    "remote": "eos-apps",
+    "collection-id": "org.flathub.Stable",
+    "remote": "flathub",
     "name": "com.hack_computer.OperatingSystemApp",
-    "branch": "eos3",
-    "filters": {
-        "architecture": ["x86_64"]
-    }
-  },
-  {
-    "action": "install",
-    "serial": 2019102300,
-    "ref-kind": "app",
-    "collection-id": "com.endlessm.Apps",
-    "remote": "eos-apps",
-    "name": "com.hack_computer.ProjectLibrary",
-    "branch": "eos3",
+    "branch": "stable",
     "filters": {
         "architecture": ["x86_64"]
     }
@@ -140,10 +128,10 @@
     "action": "install",
     "serial": 2019120900,
     "ref-kind": "app",
-    "collection-id": "com.endlessm.Apps",
-    "remote": "eos-apps",
+    "collection-id": "org.flathub.Stable",
+    "remote": "flathub",
     "name": "com.hack_computer.Sidetrack",
-    "branch": "eos3",
+    "branch": "stable",
     "filters": {
         "architecture": ["x86_64"]
     }
@@ -156,13 +144,6 @@
     "branch": "stable"
   },
   {
-    "action": "update",
-    "serial": 2020040300,
-    "ref-kind": "app",
-    "name": "com.hack_computer.Clubhouse",
-    "branch": "eos3"
-  },
-  {
     "action": "install",
     "serial": 2020090700,
     "ref-kind": "app",
@@ -170,13 +151,6 @@
     "remote": "flathub",
     "name": "org.gnome.Totem",
     "branch": "stable"
-  },
-  {
-    "action": "update",
-    "serial": 2020110600,
-    "ref-kind": "app",
-    "name": "com.hack_computer.Clubhouse",
-    "branch": "eos3"
   },
   {
     "action": "uninstall",
