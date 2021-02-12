@@ -177,5 +177,12 @@
     "remote": "flathub",
     "name": "org.chromium.Chromium",
     "branch": "stable"
+  },
+  {
+    "action": "update",
+    "serial": 2021020500,
+    "ref-kind": "app",
+    "name": "org.learningequality.Kolibri",
+    "branch": "stable"
   }
 ]
