@@ -1,0 +1,11 @@
+[
+  {
+    "action": "install",
+    "serial": 2021022200,
+    "ref-kind": "app",
+    "collection-id": "org.flathub.Stable",
+    "remote": "flathub",
+    "name": "org.gnome.Rhythmbox3",
+    "branch": "stable"
+  }
+]
