@@ -1,0 +1,11 @@
+[
+  {
+    "action": "install",
+    "serial": 2021022500,
+    "ref-kind": "app",
+    "collection-id": "org.flathub.Stable",
+    "remote": "flathub",
+    "name": "org.gnome.Cheese",
+    "branch": "stable"
+  }
+]
