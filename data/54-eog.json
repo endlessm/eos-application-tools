@@ -1,0 +1,11 @@
+[
+  {
+    "action": "install",
+    "serial": 2021092400,
+    "ref-kind": "app",
+    "collection-id": "org.flathub.Stable",
+    "remote": "flathub",
+    "name": "org.gnome.eog",
+    "branch": "stable"
+  }
+]
