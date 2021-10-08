@@ -1,0 +1,16 @@
+[
+  {
+    "action": "uninstall",
+    "branch": "eos3",
+    "serial": 2021100801,
+    "ref-kind": "app",
+    "name": "com.endlessm.word_of_the_day.en"
+  },
+  {
+    "action": "uninstall",
+    "branch": "eos3",
+    "serial": 2021100802,
+    "ref-kind": "app",
+    "name": "com.endlessm.quote_of_the_day.en"
+  }
+]
