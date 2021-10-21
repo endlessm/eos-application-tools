@@ -6,4 +6,5 @@ dist_flatpaks_DATA = \
 	50-default.json \
 	50-remove-evergreen.json \
 	51-rhythmbox.json \
-	52-cheese.json
+	52-cheese.json \
+	53-shotwell.json
