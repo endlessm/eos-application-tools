@@ -3,7 +3,6 @@
 flatpaksdir = $(datadir)/eos-application-tools/flatpak-autoinstall.d
 
 dist_flatpaks_DATA = \
-	50-default.json \
 	50-gedit.json \
 	50-gnome-calculator.json \
 	50-gnome-logs.json \
