@@ -1,7 +1,7 @@
 Source: eos-application-tools
 Section: admin
 Priority: standard
-Maintainer: Mario Sanchez Prada <mario@endlessm.com>
+Maintainer: Endless OS Team <maintainers@endlessos.org>
 Build-Depends: debhelper (>= 9),
 	dh-autoreconf,
 	libglib2.0-dev
