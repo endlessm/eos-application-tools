@@ -1,0 +1,35 @@
+#!/usr/bin/python3
+import argparse
+import json
+import jsonschema
+import glob
+import os
+
+SCHEMA_PATH = "/usr/share/eos-updater/schemas/eos-updater-autoinstall.schema.json"
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("paths", metavar="PATH", nargs="*",
+                        help="JSON files to check (default: all files matching '*.json' in same directory as this script)")
+    args = parser.parse_args()
+
+    with open(SCHEMA_PATH, "r") as f:
+        schema = json.load(f)
+
+    if not args.paths:
+        args.paths = glob.glob(os.path.join(os.path.dirname(__file__), "*.json"))
+
+    for path in args.paths:
+        with open(path, "r") as f:
+            actions = json.load(f)
+
+        if not isinstance(actions, list):
+            raise ValueError(f"{path} is not a list")
+
+        for action in actions:
+            jsonschema.validate(instance=action, schema=schema)
+
+
+if __name__ == "__main__":
+    main()

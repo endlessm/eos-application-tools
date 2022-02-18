@@ -13,3 +13,9 @@ dist_flatpaks_DATA = \
 	51-rhythmbox.json \
 	52-cheese.json \
 	53-shotwell.json
+
+EXTRA_DIST = \
+	validate-actions
+
+TESTS = \
+	validate-actions
