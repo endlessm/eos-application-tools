@@ -1,0 +1,9 @@
+[
+  {
+    "action": "update",
+    "serial": 2022021800,
+    "ref-kind": "app",
+    "name": "com.endlessm.EknServicesMultiplexer",
+    "branch": "stable"
+  }
+]
