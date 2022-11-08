@@ -10,7 +10,5 @@ dist_flatpaks_DATA = \
 	50-gnome-calculator.json \
 	50-gnome-contacts.json \
 	50-gnome-logs.json \
-	50-remove-evergreen.json \
-	51-rhythmbox.json \
 	52-cheese.json \
 	53-shotwell.json
