@@ -4,6 +4,7 @@ flatpaksdir = $(datadir)/eos-application-tools/flatpak-autoinstall.d
 
 dist_flatpaks_DATA = \
 	50-default.json \
+	50-eog.json \
 	50-file-roller.json \
 	50-font-viewer.json \
 	50-gedit.json \
