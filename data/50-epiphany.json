@@ -1,0 +1,11 @@
+[
+  {
+    "action": "install",
+    "serial": 2023022100,
+    "ref-kind": "app",
+    "collection-id": "org.flathub.Stable",
+    "remote": "flathub",
+    "name": "org.gnome.Epiphany",
+    "branch": "stable"
+  }
+]
