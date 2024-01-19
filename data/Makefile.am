@@ -10,6 +10,5 @@ dist_flatpaks_DATA = \
 	50-gedit.json \
 	50-gnome-calculator.json \
 	50-gnome-contacts.json \
-	50-gnome-logs.json \
 	53-shotwell.json \
 	$(NULL)
