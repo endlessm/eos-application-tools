@@ -1,0 +1,11 @@
+[
+  {
+    "action": "install",
+    "serial": 2024032501,
+    "ref-kind": "app",
+    "collection-id": "org.flathub.Stable",
+    "remote": "flathub",
+    "name": "com.vixalien.decibels",
+    "branch": "stable"
+  }
+]
