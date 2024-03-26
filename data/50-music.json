@@ -1,0 +1,11 @@
+[
+  {
+    "action": "install",
+    "serial": 2024032500,
+    "ref-kind": "app",
+    "collection-id": "org.flathub.Stable",
+    "remote": "flathub",
+    "name": "org.gnome.Music",
+    "branch": "stable"
+  }
+]
