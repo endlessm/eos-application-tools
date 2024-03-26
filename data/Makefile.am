@@ -3,6 +3,7 @@
 flatpaksdir = $(datadir)/eos-application-tools/flatpak-autoinstall.d
 
 dist_flatpaks_DATA = \
+	50-decibels.json \
 	50-loupe.json \
 	50-music.json \
 	$(NULL)
